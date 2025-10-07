@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Member</title>
+</head>
+<body>
+    <h2>Add a New Member</h2>
+    <form method="POST">
+        <label>First Name:</label>
+        <input type="text" name="first_name" required><br><br>
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" required><br><br>
+
+        <label>Email:</label>
+        <input type="email" name="email"><br><br>
+
+        <label>Phone:</label>
+        <input type="text" name="phone"><br><br>
+
+        <label>Address:</label>
+        <textarea name="address"></textarea><br><br>
+
+        <label>Date of Birth:</label>
+        <input type="date" name="date_of_birth"><br><br>
+
+        <label>Baptism Status:</label>
+        <select name="baptism_status">
+            <option value="Not Baptized">Not Baptized</option>
+            <option value="Baptized Here">Baptized Here</option>
+            <option value="Baptized Elsewhere">Baptized Elsewhere</option>
+        </select><br><br>
+
+        <label>Membership Status:</label>
+        <select name="membership_status">
+            <option value="Visitor">Visitor</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select><br><br>
+
+        <button type="submit">Add Member</button>
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
