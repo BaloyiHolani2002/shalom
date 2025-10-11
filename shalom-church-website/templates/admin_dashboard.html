@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Shalom Church</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7a7225;
+            --primary-dark: #be3591;
+            --primary-light: #2c2b6b;
+            --secondary: #d4af37;
+            --accent: #8b4513;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --background: #f8f9fa;
+            --white: #ffffff;
+            --gray-light: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            background: #e6c34c;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Admin Layout */
+        .admin-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: 250px;
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 2rem 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .admin-nav ul {
+            list-style: none;
+        }
+
+        .admin-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-nav a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: var(--secondary);
+        }
+
+        .admin-nav i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            background: var(--background);
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Admin Cards */
+        .admin-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--gray-light);
+        }
+
+        .admin-card h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(122, 114, 37, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn-admin {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-admin:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: var(--text-dark);
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        /* Table Styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .table th,
+        .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .table th {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tr:hover {
+            background: var(--gray-light);
+        }
+
+        .table td {
+            font-size: 0.9rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Member Groups */
+        .member-group {
+            margin-bottom: 3rem;
+        }
+
+        .member-group h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-light);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-accepted {
+            background: #d1edff;
+            color: #004085;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .action-card h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+
+            .admin-nav ul {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 1rem;
+            }
+
+            .admin-nav li {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+
+            .admin-nav a {
+                padding: 1rem;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .admin-nav a:hover,
+            .admin-nav a.active {
+                border-left: none;
+                border-bottom-color: var(--secondary);
+            }
+
+            .admin-main {
+                padding: 1rem;
+            }
+
+            .stats-grid,
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .table {
+                font-size: 0.8rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 8px 4px;
+            }
+
+            .admin-header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .admin-header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .admin-header,
+            .admin-sidebar,
+            .btn {
+                display: none;
+            }
+
+            .admin-main {
+                padding: 0;
+            }
+
+            .admin-card {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <h1>
+            <i class="fas fa-user-shield"></i>
+            Shalom Church Admin Panel
+        </h1>
+        <div class="admin-header-actions">
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Print Report
+            </button>
+            <a href="/" class="btn btn-outline">
+                <i class="fas fa-home"></i> Back to Website
+            </a>
+            <button class="btn btn-outline" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Admin Layout -->
+    <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="admin-sidebar">
+            <div class="admin-nav">
+                <ul>
+                    <li>
+                        <a href="#" class="admin-nav-link active" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="admin-nav-link" data-section="events-management">
+                            <i class="fas fa-calendar-plus"></i>
+                            Post Services/Events
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="admin-nav-link" data-section="members-management">
+                            <i class="fas fa-users"></i>
+                            View Members
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="admin-nav-link" data-section="add-member">
+                            <i class="fas fa-user-plus"></i>
+                            Add Member
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="admin-nav-link" data-section="visitor-requests">
+                            <i class="fas fa-door-open"></i>
+                            Visitor Requests
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="admin-nav-link" data-section="church-management">
+                            <i class="fas fa-cog"></i>
+                            Church Management
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="admin-nav-link" data-section="reports">
+                            <i class="fas fa-chart-bar"></i>
+                            Reports & Analytics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <div class="admin-card">
+                    <h3><i class="fas fa-tachometer-alt"></i> Church Dashboard</h3>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number" id="total-members">0</span>
+                            <span class="stat-label">Total Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="pending-requests">0</span>
+                            <span class="stat-label">Pending Requests</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="upcoming-events">0</span>
+                            <span class="stat-label">Upcoming Events</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="youth-members">0</span>
+                            <span class="stat-label">Youth Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="worship-team">0</span>
+                            <span class="stat-label">Worship Team</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="new-this-month">0</span>
+                            <span class="stat-label">New This Month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div class="quick-actions">
+                        <div class="action-card" onclick="showSection('events-management')">
+                            <i class="fas fa-calendar-plus"></i>
+                            <h4>Post New Event</h4>
+                            <p>Schedule church services and events</p>
+                        </div>
+                        <div class="action-card" onclick="showSection('add-member')">
+                            <i class="fas fa-user-plus"></i>
+                            <h4>Add New Member</h4>
+                            <p>Register new church members</p>
+                        </div>
+                        <div class="action-card" onclick="showSection('visitor-requests')">
+                            <i class="fas fa-door-open"></i>
+                            <h4>Visitor Requests</h4>
+                            <p>Manage visit requests</p>
+                        </div>
+                        <div class="action-card" onclick="showSection('members-management')">
+                            <i class="fas fa-list"></i>
+                            <h4>View All Members</h4>
+                            <p>Browse member database</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fas fa-chart-line"></i> Recent Activity</h3>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Activity</th>
+                                    <th>Details</th>
+                                    <th>User</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-activity">
+                                <!-- Recent activity will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Management Section -->
+            <section id="events-management" class="admin-section">
+                <div class="admin-card">
+                    <h3><i class="fas fa-calendar-plus"></i> Post Upcoming Service/Event</h3>
+                    <form id="event-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="event-title">Event Title *</label>
+                                <input type="text" id="event-title" placeholder="Enter event title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-type">Event Type *</label>
+                                <select id="event-type" required>
+                                    <option value="">Select type</option>
+                                    <option value="service">Church Service</option>
+                                    <option value="youth">Youth Event</option>
+                                    <option value="prayer">Prayer Meeting</option>
+                                    <option value="community">Community Event</option>
+                                    <option value="special">Special Event</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="event-date">Date *</label>
+                                <input type="date" id="event-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-time">Time *</label>
+                                <input type="time" id="event-time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-duration">Duration</label>
+                                <input type="text" id="event-duration" placeholder="e.g., 2 hours">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-location">Location *</label>
+                            <input type="text" id="event-location" placeholder="Enter event location" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-description">Description *</label>
+                            <textarea id="event-description" placeholder="Enter event description" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-speaker">Speaker/Leader</label>
+                            <input type="text" id="event-speaker" placeholder="Optional: event speaker">
+                        </div>
+
+                        <button type="submit" class="btn-admin">
+                            <i class="fas fa-calendar-check"></i> Post Event
+                        </button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fas fa-list"></i> Upcoming Events</h3>
+                    <div id="events-list">
+                        <!-- Events will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Members Management Section -->
+            <section id="members-management" class="admin-section">
+                <div class="admin-card">
+                    <h3><i class="fas fa-users"></i> Church Members Directory</h3>
+                    
+                    <div class="member-group">
+                        <h4><i class="fas fa-child"></i> Youth Members</h4>
+                        <div class="table-container">
+                            <table class="table" id="youth-members-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Age</th>
+                                        <th>Join Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Youth members will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="member-group">
+                        <h4><i class="fas fa-music"></i> Worship Team</h4>
+                        <div class="table-container">
+                            <table class="table" id="worship-team-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Instrument</th>
+                                        <th>Join Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Worship team members will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="member-group">
+                        <h4><i class="fas fa-hands-helping"></i> Other Teams & Ministries</h4>
+                        <div class="table-container">
+                            <table class="table" id="other-teams-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Ministry</th>
+                                        <th>Role</th>
+                                        <th>Join Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Other team members will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Member Section -->
+            <section id="add-member" class="admin-section">
+                <div class="admin-card">
+                    <h3><i class="fas fa-user-plus"></i> Add New Member</h3>
+                    <form id="add-member-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="member-name">Full Name *</label>
+                                <input type="text" id="member-name" placeholder="Enter full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="member-email">Email *</label>
+                                <input type="email" id="member-email" placeholder="Enter email address" required>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="member-phone">Phone Number</label>
+                                <input type="tel" id="member-phone" placeholder="Enter phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="member-age">Age</label>
+                                <input type="number" id="member-age" placeholder="Enter age" min="1" max="120">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="member-ministry">Ministry/Team *</label>
+                                <select id="member-ministry" required>
+                                    <option value="">Select ministry/team</option>
+                                    <option value="youth">Youth</option>
+                                    <option value="worship">Worship Team</option>
+                                    <option value="prayer">Prayer Team</option>
+                                    <option value="ushers">Ushers</option>
+                                    <option value="children">Children's Ministry</option>
+                                    <option value="outreach">Outreach Ministry</option>
+                                    <option value="elder">Elders</option>
+                                    <option value="deacon">Deacons</option>
+                                    <option value="general">General Member</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="member-role">Role</label>
+                                <input type="text" id="member-role" placeholder="Enter role (if any)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member-join-date">Join Date *</label>
+                            <input type="date" id="member-join-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member-address">Address</label>
+                            <textarea id="member-address" placeholder="Enter member's address"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="member-notes">Notes</label>
+                            <textarea id="member-notes" placeholder="Any additional notes"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-admin">
+                            <i class="fas fa-user-plus"></i> Add Member
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Visitor Requests Section -->
+            <section id="visitor-requests" class="admin-section">
+                <div class="admin-card">
+                    <h3><i class="fas fa-door-open"></i> Visitor Requests Management</h3>
+                    <div class="table-container">
+                        <table class="table" id="visitor-requests-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Visit Date</th>
+                                    <th>Service Type</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Visitor requests will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Church Management Section -->
+            <section id="church-management" class="admin-section">
+                <div class="admin-card">
+                    <h3><i class="fas fa-church"></i> Church Information</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="church-name">Church Name</label>
+                            <input type="text" id="church-name" value="Shalom Ministry Church">
+                        </div>
+                        <div class="form-group">
+                            <label for="church-email">Church Email</label>
+                            <input type="email" id="church-email" value="info@shalomchurch.org">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="church-phone">Church Phone</label>
+                            <input type="tel" id="church-phone" value="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="church-pastor">Pastor Name</label>
+                            <input type="text" id="church-pastor" value="Pastor John Smith">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="church-address">Church Address</label>
+                        <textarea id="church-address">shalom ministry church, gawula, Giyani</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="church-description">Church Description</label>
+                        <textarea id="church-description">Bringing peace, hope, and wholeness to our community through the love of Christ.</textarea>
+                    </div>
+
+                    <button class="btn-admin">
+                        <i class="fas fa-save"></i> Save Church Information
+                    </button>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fas fa-clock"></i> Service Times Management</h3>
+                    <form id="service-times-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="sunday-morning">Sunday Morning Service</label>
+                                <input type="text" id="sunday-morning" value="10:00 AM">
+                            </div>
+                            <div class="form-group">
+                                <label for="sunday-evening">Sunday Evening Service</label>
+                                <input type="text" id="sunday-evening" value="14:00 PM">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="midweek-service">Midweek Service</label>
+                                <input type="text" id="midweek-service" value="Monday & Wednesdays 5:00 PM">
+                            </div>
+                            <div class="form-group">
+                                <label for="youth-service">Youth Service</label>
+                                <input type="text" id="youth-service" value="Fridays 7:00 PM">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prayer-meeting">Prayer Meeting Times</label>
+                            <input type="text" id="prayer-meeting" value="Tuesdays 6:00 PM">
+                        </div>
+
+                        <button type="submit" class="btn-admin">
+                            <i class="fas fa-clock"></i> Update Service Times
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="admin-section">
+                <div class="admin-card">
+                    <h3><i class="fas fa-chart-bar"></i> Church Analytics & Reports</h3>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number" id="report-total-members">0</span>
+                            <span class="stat-label">Total Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="report-growth">0%</span>
+                            <span class="stat-label">Growth This Year</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="report-youth">0</span>
+                            <span class="stat-label">Youth Percentage</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="report-visitors">0</span>
+                            <span class="stat-label">Monthly Visitors</span>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                        <button class="btn-admin btn-primary">
+                            <i class="fas fa-download"></i> Export Member List
+                        </button>
+                        <button class="btn-admin btn-success">
+                            <i class="fas fa-file-pdf"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fas fa-calendar"></i> Attendance Trends</h3>
+                    <p style="text-align: center; padding: 2rem; color: var(--text-light);">
+                        <i class="fas fa-chart-line fa-3x"></i><br>
+                        Attendance charts will be displayed here
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sample data storage (in a real app, this would be a database)
+        let churchData = {
+            members: [
+                {
+                    id: 1,
+                    name: "John Doe",
+                    email: "john@example.com",
+                    phone: "555-0101",
+                    age: 25,
+                    ministry: "youth",
+                    role: "Member",
+                    joinDate: "2024-01-15",
+                    address: "123 Main St, Giyani",
+                    notes: "Active in youth activities"
+                },
+                {
+                    id: 2,
+                    name: "Sarah Smith",
+                    email: "sarah@example.com",
+                    phone: "555-0102",
+                    age: 30,
+                    ministry: "worship",
+                    role: "Lead Singer",
+                    joinDate: "2024-02-20",
+                    address: "456 Oak Ave, Giyani",
+                    notes: "Plays guitar and sings"
+                },
+                {
+                    id: 3,
+                    name: "Mike Johnson",
+                    email: "mike@example.com",
+                    phone: "555-0103",
+                    age: 45,
+                    ministry: "elder",
+                    role: "Elder",
+                    joinDate: "2023-11-10",
+                    address: "789 Pine Rd, Giyani",
+                    notes: "Church elder"
+                }
+            ],
+            events: [
+                {
+                    id: 1,
+                    title: "Community Picnic",
+                    date: "2024-06-15",
+                    time: "12:00",
+                    duration: "4 hours",
+                    location: "Church Grounds",
+                    description: "Join us for a fun community picnic with food, games, and fellowship",
+                    type: "community",
+                    speaker: ""
+                },
+                {
+                    id: 2,
+                    title: "Sunday Worship Service",
+                    date: "2024-06-16",
+                    time: "10:00",
+                    duration: "2 hours",
+                    location: "Main Sanctuary",
+                    description: "Weekly worship service with communion",
+                    type: "service",
+                    speaker: "Pastor John Smith"
+                }
+            ],
+            visitorRequests: [
+                {
+                    id: 1,
+                    name: "Emily Davis",
+                    email: "emily@example.com",
+                    phone: "555-0104",
+                    visitDate: "2024-06-20",
+                    serviceType: "Sunday Morning",
+                    message: "I'd like to visit your church this Sunday with my family",
+                    status: "pending"
+                },
+                {
+                    id: 2,
+                    name: "Robert Brown",
+                    email: "robert@example.com",
+                    phone: "555-0105",
+                    visitDate: "2024-06-16",
+                    serviceType: "Youth Service",
+                    message: "Interested in your youth programs",
+                    status: "accepted"
+                }
+            ],
+            activity: [
+                {
+                    date: "2024-06-10",
+                    activity: "New Member Added",
+                    details: "Sarah Smith joined Worship Team",
+                    user: "Admin"
+                },
+                {
+                    date: "2024-06-09",
+                    activity: "Event Created",
+                    details: "Community Picnic scheduled",
+                    user: "Admin"
+                },
+                {
+                    date: "2024-06-08",
+                    activity: "Visitor Request Accepted",
+                    details: "Robert Brown's visit approved",
+                    user: "Admin"
+                }
+            ]
+        };
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDashboardStats();
+            loadMembersData();
+            loadEventsData();
+            loadVisitorRequests();
+            loadRecentActivity();
+            
+            // Set current date for forms
+            document.getElementById('member-join-date').valueAsDate = new Date();
+            document.getElementById('event-date').valueAsDate = new Date();
+        });
+
+        // Navigation
+        document.querySelectorAll('.admin-nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                
+                // Update active nav link
+                document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected section
+                showSection(sectionId);
+            });
+        });
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Dashboard Statistics
+        function updateDashboardStats() {
+            const totalMembers = churchData.members.length;
+            const pendingRequests = churchData.visitorRequests.filter(req => req.status === 'pending').length;
+            const upcomingEvents = churchData.events.length;
+            const youthMembers = churchData.members.filter(member => member.ministry === 'youth').length;
+            const worshipTeam = churchData.members.filter(member => member.ministry === 'worship').length;
+            
+            // Calculate new members this month
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const newThisMonth = churchData.members.filter(member => {
+                const joinDate = new Date(member.joinDate);
+                return joinDate.getMonth() === currentMonth && joinDate.getFullYear() === currentYear;
+            }).length;
+
+            document.getElementById('total-members').textContent = totalMembers;
+            document.getElementById('pending-requests').textContent = pendingRequests;
+            document.getElementById('upcoming-events').textContent = upcomingEvents;
+            document.getElementById('youth-members').textContent = youthMembers;
+            document.getElementById('worship-team').textContent = worshipTeam;
+            document.getElementById('new-this-month').textContent = newThisMonth;
+
+            // Update report stats
+            document.getElementById('report-total-members').textContent = totalMembers;
+            document.getElementById('report-growth').textContent = '12%';
+            document.getElementById('report-youth').textContent = Math.round((youthMembers / totalMembers) * 100) + '%';
+            document.getElementById('report-visitors').textContent = '45';
+        }
+
+        function loadRecentActivity() {
+            const activityTable = document.querySelector('#recent-activity');
+            activityTable.innerHTML = '';
+
+            churchData.activity.forEach(activity => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activity.date}</td>
+                    <td>${activity.activity}</td>
+                    <td>${activity.details}</td>
+                    <td>${activity.user}</td>
+                `;
+                activityTable.appendChild(row);
+            });
+        }
+
+        // Members Management
+        function loadMembersData() {
+            const youthTable = document.querySelector('#youth-members-table tbody');
+            const worshipTable = document.querySelector('#worship-team-table tbody');
+            const otherTable = document.querySelector('#other-teams-table tbody');
+
+            // Clear existing data
+            youthTable.innerHTML = '';
+            worshipTable.innerHTML = '';
+            otherTable.innerHTML = '';
+
+            churchData.members.forEach(member => {
+                const row = document.createElement('tr');
+                
+                if (member.ministry === 'youth') {
+                    row.innerHTML = `
+                        <td>${member.name}</td>
+                        <td>${member.email}</td>
+                        <td>${member.phone || 'N/A'}</td>
+                        <td>${member.age || 'N/A'}</td>
+                        <td>${member.joinDate}</td>
+                        <td>
+                            <button class="btn-admin btn-warning" onclick="editMember(${member.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn-admin btn-danger" onclick="deleteMember(${member.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                    youthTable.appendChild(row);
+                } else if (member.ministry === 'worship') {
+                    row.innerHTML = `
+                        <td>${member.name}</td>
+                        <td>${member.email}</td>
+                        <td>${member.role}</td>
+                        <td>${member.notes.includes('guitar') ? 'Guitar' : 'Vocals'}</td>
+                        <td>${member.joinDate}</td>
+                        <td>
+                            <button class="btn-admin btn-warning" onclick="editMember(${member.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn-admin btn-danger" onclick="deleteMember(${member.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                    worshipTable.appendChild(row);
+                } else {
+                    row.innerHTML = `
+                        <td>${member.name}</td>
+                        <td>${member.email}</td>
+                        <td>${member.ministry}</td>
+                        <td>${member.role}</td>
+                        <td>${member.joinDate}</td>
+                        <td>
+                            <button class="btn-admin btn-warning" onclick="editMember(${member.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn-admin btn-danger" onclick="deleteMember(${member.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                    otherTable.appendChild(row);
+                }
+            });
+        }
+
+        function deleteMember(memberId) {
+            if (confirm('Are you sure you want to delete this member?')) {
+                churchData.members = churchData.members.filter(member => member.id !== memberId);
+                loadMembersData();
+                updateDashboardStats();
+                
+                // Add to activity
+                churchData.activity.unshift({
+                    date: new Date().toISOString().split('T')[0],
+                    activity: 'Member Deleted',
+                    details: `Member ID ${memberId} removed`,
+                    user: 'Admin'
+                });
+                loadRecentActivity();
+            }
+        }
+
+        function editMember(memberId) {
+            alert('Edit functionality would open a modal to edit member details. Member ID: ' + memberId);
+        }
+
+        // Add Member Form
+        document.getElementById('add-member-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newMember = {
+                id: Date.now(),
+                name: document.getElementById('member-name').value,
+                email: document.getElementById('member-email').value,
+                phone: document.getElementById('member-phone').value,
+                age: document.getElementById('member-age').value,
+                ministry: document.getElementById('member-ministry').value,
+                role: document.getElementById('member-role').value,
+                joinDate: document.getElementById('member-join-date').value,
+                address: document.getElementById('member-address').value,
+                notes: document.getElementById('member-notes').value
+            };
+
+            churchData.members.push(newMember);
+            loadMembersData();
+            updateDashboardStats();
+            
+            // Add to activity
+            churchData.activity.unshift({
+                date: new Date().toISOString().split('T')[0],
+                activity: 'New Member Added',
+                details: `${newMember.name} joined ${newMember.ministry}`,
+                user: 'Admin'
+            });
+            loadRecentActivity();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('member-join-date').valueAsDate = new Date();
+            
+            alert('Member added successfully!');
+            showSection('members-management');
+        });
+
+        // Events Management
+        function loadEventsData() {
+            const eventsList = document.getElementById('events-list');
+            eventsList.innerHTML = '';
+
+            if (churchData.events.length === 0) {
+                eventsList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No events scheduled yet.</p>';
+                return;
+            }
+
+            churchData.events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'admin-card';
+                eventCard.style.marginBottom = '1rem';
+                eventCard.innerHTML = `
+                    <div style="display: flex; justify-content: between; align-items: start;">
+                        <div style="flex: 1;">
+                            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">${event.title}</h4>
+                            <p style="margin-bottom: 0.5rem; color: var(--text-light);">
+                                <i class="far fa-calendar"></i> ${event.date} at ${event.time}
+                                ${event.duration ? ` • ${event.duration}` : ''}
+                            </p>
+                            <p style="margin-bottom: 0.5rem;">
+                                <i class="fas fa-map-marker-alt"></i> ${event.location}
+                            </p>
+                            ${event.speaker ? `<p style="margin-bottom: 0.5rem;"><i class="fas fa-user"></i> ${event.speaker}</p>` : ''}
+                            <p style="margin-bottom: 1rem;">${event.description}</p>
+                            <span class="status-badge ${event.type === 'service' ? 'status-accepted' : 'status-pending'}">
+                                ${event.type}
+                            </span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn-admin btn-warning" onclick="editEvent(${event.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-admin btn-danger" onclick="deleteEvent(${event.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                eventsList.appendChild(eventCard);
+            });
+        }
+
+        document.getElementById('event-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newEvent = {
+                id: Date.now(),
+                title: document.getElementById('event-title').value,
+                date: document.getElementById('event-date').value,
+                time: document.getElementById('event-time').value,
+                duration: document.getElementById('event-duration').value,
+                location: document.getElementById('event-location').value,
+                description: document.getElementById('event-description').value,
+                type: document.getElementById('event-type').value,
+                speaker: document.getElementById('event-speaker').value
+            };
+
+            churchData.events.push(newEvent);
+            loadEventsData();
+            updateDashboardStats();
+            
+            // Add to activity
+            churchData.activity.unshift({
+                date: new Date().toISOString().split('T')[0],
+                activity: 'Event Created',
+                details: `${newEvent.title} scheduled`,
+                user: 'Admin'
+            });
+            loadRecentActivity();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('event-date').valueAsDate = new Date();
+            
+            alert('Event posted successfully!');
+        });
+
+        function deleteEvent(eventId) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                churchData.events = churchData.events.filter(event => event.id !== eventId);
+                loadEventsData();
+                updateDashboardStats();
+                
+                // Add to activity
+                churchData.activity.unshift({
+                    date: new Date().toISOString().split('T')[0],
+                    activity: 'Event Deleted',
+                    details: `Event ID ${eventId} removed`,
+                    user: 'Admin'
+                });
+                loadRecentActivity();
+            }
+        }
+
+        function editEvent(eventId) {
+            alert('Edit functionality would open a modal to edit event details. Event ID: ' + eventId);
+        }
+
+        // Visitor Requests Management
+        function loadVisitorRequests() {
+            const requestsTable = document.querySelector('#visitor-requests-table tbody');
+            requestsTable.innerHTML = '';
+
+            churchData.visitorRequests.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.name}</td>
+                    <td>${request.email}</td>
+                    <td>${request.phone}</td>
+                    <td>${request.visitDate}</td>
+                    <td>${request.serviceType}</td>
+                    <td style="max-width: 200px;">${request.message}</td>
+                    <td>
+                        <span class="status-badge status-${request.status}">
+                            ${request.status}
+                        </span>
+                    </td>
+                    <td>
+                        ${request.status === 'pending' ? `
+                            <button class="btn-admin btn-success" onclick="acceptVisitorRequest(${request.id})" style="margin-bottom: 0.25rem;">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                            <button class="btn-admin btn-danger" onclick="rejectVisitorRequest(${request.id})">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        ` : 'Processed'}
+                    </td>
+                `;
+                requestsTable.appendChild(row);
+            });
+        }
+
+        function acceptVisitorRequest(requestId) {
+            const request = churchData.visitorRequests.find(req => req.id === requestId);
+            if (request) {
+                request.status = 'accepted';
+                
+                // Simulate sending email
+                const emailContent = `
+Dear ${request.name},
+
+We are delighted to inform you that your visit request has been accepted! 
+We look forward to welcoming you to Shalom Ministry Church on ${request.visitDate}.
+
+Here are the details of your visit:
+- Service: ${request.serviceType}
+- Date: ${request.visitDate}
+- Location: shalom ministry church, gawula, Giyani
+
+If you have any questions or need directions, please don't hesitate to contact us at (555) 123-4567.
+
+We can't wait to meet you and share God's peace with you!
+
+Blessings,
+The Shalom Church Team
+                `;
+                
+                alert(`Email sent to ${request.email}:\n\n${emailContent}`);
+                
+                loadVisitorRequests();
+                updateDashboardStats();
+                
+                // Add to activity
+                churchData.activity.unshift({
+                    date: new Date().toISOString().split('T')[0],
+                    activity: 'Visitor Request Accepted',
+                    details: `${request.name}'s visit approved`,
+                    user: 'Admin'
+                });
+                loadRecentActivity();
+            }
+        }
+
+        function rejectVisitorRequest(requestId) {
+            if (confirm('Are you sure you want to reject this visit request?')) {
+                const request = churchData.visitorRequests.find(req => req.id === requestId);
+                if (request) {
+                    request.status = 'rejected';
+                    
+                    // Simulate sending email
+                    const emailContent = `
+Dear ${request.name},
+
+Thank you for your interest in visiting Shalom Ministry Church. 
+Unfortunately, we are unable to accommodate your visit request at this time.
+
+We appreciate your interest and hope you'll consider visiting us in the future. 
+Please feel free to contact us if you have any questions.
+
+Blessings,
+The Shalom Church Team
+                    `;
+                    
+                    alert(`Email sent to ${request.email}:\n\n${emailContent}`);
+                    
+                    loadVisitorRequests();
+                    updateDashboardStats();
+                    
+                    // Add to activity
+                    churchData.activity.unshift({
+                        date: new Date().toISOString().split('T')[0],
+                        activity: 'Visitor Request Rejected',
+                        details: `${request.name}'s visit declined`,
+                        user: 'Admin'
+                    });
+                    loadRecentActivity();
+                }
+            }
+        }
+
+        // Service Times Management
+        document.getElementById('service-times-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Service times updated successfully!');
+            
+            // Add to activity
+            churchData.activity.unshift({
+                date: new Date().toISOString().split('T')[0],
+                activity: 'Service Times Updated',
+                details: 'Church service schedule modified',
+                user: 'Admin'
+            });
+            loadRecentActivity();
+        });
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '/';
+            }
+        }
+
+        // Export functionality
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            alert('Member list exported successfully!');
+        });
+
+        document.querySelector('.btn-success').addEventListener('click', function() {
+            alert('PDF report generated successfully!');
+        });
+    </script>
+</body>
+</html>
