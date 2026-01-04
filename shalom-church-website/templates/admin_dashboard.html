@@ -4,63 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Shalom Church</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset and Base Styles */
+        /* Modern Color Scheme */
+        :root {
+            --primary: #2c3e50;
+            --primary-dark: #1a252f;
+            --primary-light: #34495e;
+            --secondary: #e74c3c;
+            --secondary-light: #ff6b6b;
+            --accent: #3498db;
+            --accent-light: #5dade2;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #7a7225;
-            --primary-dark: #be3591;
-            --primary-light: #2c2b6b;
-            --secondary: #d4af37;
-            --accent: #8b4513;
-            --text-dark: #2d3748;
-            --text-light: #718096;
-            --background: #f8f9fa;
-            --white: #ffffff;
-            --gray-light: #e2e8f0;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--background);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: var(--dark);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Glass Morphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Admin Header */
         .admin-header {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: var(--white);
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 4px solid var(--secondary);
         }
 
         .admin-header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .admin-header-actions {
@@ -69,28 +80,31 @@
             gap: 1rem;
         }
 
+        /* Buttons */
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background: var(--secondary);
-            color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
 
         .btn-primary:hover {
-            background: #e6c34c;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
         }
 
         .btn-outline {
@@ -102,24 +116,27 @@
         .btn-outline:hover {
             background: var(--white);
             color: var(--primary);
+            transform: translateY(-2px);
         }
 
         /* Admin Layout */
         .admin-layout {
             display: flex;
             min-height: calc(100vh - 80px);
+            padding: 20px;
+            gap: 20px;
         }
 
         /* Sidebar */
         .admin-sidebar {
-            width: 250px;
-            background: var(--primary-dark);
-            color: var(--white);
-            padding: 2rem 0;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--radius);
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            height: fit-content;
             position: sticky;
-            top: 80px;
-            height: calc(100vh - 80px);
-            overflow-y: auto;
+            top: 100px;
         }
 
         .admin-nav ul {
@@ -127,407 +144,690 @@
         }
 
         .admin-nav li {
-            margin-bottom: 0.5rem;
+            margin: 0.3rem 0;
         }
 
         .admin-nav a {
-            color: var(--white);
+            color: var(--primary);
             text-decoration: none;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
+            gap: 15px;
+            transition: var(--transition);
             border-left: 4px solid transparent;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-nav a:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.1), transparent);
+            transition: var(--transition);
+        }
+
+        .admin-nav a:hover:before,
+        .admin-nav a.active:before {
+            width: 100%;
         }
 
         .admin-nav a:hover,
         .admin-nav a.active {
-            background: rgba(255,255,255,0.1);
+            color: var(--secondary);
             border-left-color: var(--secondary);
+            background: rgba(231, 76, 60, 0.05);
         }
 
         .admin-nav i {
-            width: 20px;
+            width: 24px;
+            font-size: 1.2rem;
             text-align: center;
         }
 
         /* Main Content */
         .admin-main {
             flex: 1;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--radius);
             padding: 2rem;
-            background: var(--background);
+            box-shadow: var(--shadow);
+            overflow-y: auto;
         }
 
-        .admin-section {
-            display: none;
+        /* Search and Filter Bar */
+        .search-filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        .admin-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            outline: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .filter-select {
+            padding: 14px 20px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            background: var(--white);
+            min-width: 200px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            border-color: var(--accent);
+            outline: none;
         }
 
         /* Admin Cards */
         .admin-card {
             background: var(--white);
-            border-radius: 10px;
+            border-radius: var(--radius);
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid var(--gray-light);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
         .admin-card h3 {
             color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.5rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.6rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--white), var(--light));
+            padding: 1.8rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--secondary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            line-height: 1;
+            margin: 0.5rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Form Styles */
-        .form-group {
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--secondary);
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--gray-light);
-            border-radius: 5px;
+            padding: 14px 18px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s ease;
+            transition: var(--transition);
+            background: var(--white);
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--primary);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(122, 114, 37, 0.1);
         }
 
         .form-group textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
+            line-height: 1.6;
         }
 
+        /* Action Buttons */
         .btn-admin {
-            padding: 12px 24px;
-            background: var(--primary);
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: var(--white);
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.3s ease;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
         }
 
         .btn-admin:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
         }
 
         .btn-success {
-            background: #28a745;
-        }
-
-        .btn-success:hover {
-            background: #218838;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
+            background: linear-gradient(135deg, var(--success), #2ecc71);
         }
 
         .btn-warning {
-            background: #ffc107;
-            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--warning), #f1c40f);
         }
 
-        .btn-warning:hover {
-            background: #e0a800;
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--info), #138496);
         }
 
         /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
         .table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
+            border-collapse: separate;
+            border-spacing: 0;
             background: var(--white);
-            border-radius: 8px;
+            border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .table th,
         .table td {
-            padding: 12px 15px;
+            padding: 16px 20px;
             text-align: left;
-            border-bottom: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--light);
         }
 
         .table th {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: var(--white);
             font-weight: 600;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+        }
+
+        .table tr {
+            transition: var(--transition);
         }
 
         .table tr:hover {
-            background: var(--gray-light);
+            background: rgba(52, 152, 219, 0.05);
+            transform: translateX(5px);
         }
 
         .table td {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            color: var(--dark);
         }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--secondary);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: block;
-            line-height: 1;
-        }
-
-        .stat-label {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Member Groups */
-        .member-group {
-            margin-bottom: 3rem;
-        }
-
-        .member-group h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--gray-light);
-            font-size: 1.2rem;
+        /* Action Buttons in Tables */
+        .action-buttons {
             display: flex;
-            align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
-        /* Status Badges */
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.85rem;
             font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .status-pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .status-accepted {
-            background: #d1edff;
-            color: #004085;
-        }
-
-        .status-rejected {
-            background: #f8d7da;
-            color: #721c24;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         /* Quick Actions */
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .action-card {
             background: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
+            padding: 2rem;
+            border-radius: var(--radius);
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             cursor: pointer;
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
         }
 
         .action-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             border-color: var(--secondary);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
         .action-card i {
-            font-size: 2rem;
-            color: var(--primary);
+            font-size: 2.5rem;
+            color: var(--secondary);
             margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .action-card h4 {
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
         }
 
         .action-card p {
-            color: var(--text-light);
+            color: var(--gray);
             font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .status-published {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--success);
+        }
+
+        .status-draft {
+            background: rgba(243, 156, 18, 0.15);
+            color: var(--warning);
+        }
+
+        .status-pending {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--accent);
+        }
+
+        /* Event Cards */
+        .event-card {
+            background: linear-gradient(135deg, var(--white), var(--light));
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .event-date {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
             .admin-layout {
                 flex-direction: column;
             }
-
+            
             .admin-sidebar {
                 width: 100%;
-                height: auto;
                 position: static;
+                margin-bottom: 20px;
             }
-
+            
             .admin-nav ul {
                 display: flex;
                 overflow-x: auto;
                 padding: 0 1rem;
             }
-
+            
             .admin-nav li {
-                margin-bottom: 0;
                 flex-shrink: 0;
             }
-
+            
             .admin-nav a {
                 padding: 1rem;
                 border-left: none;
                 border-bottom: 3px solid transparent;
             }
-
-            .admin-nav a:hover,
+            
             .admin-nav a.active {
                 border-left: none;
                 border-bottom-color: var(--secondary);
             }
+        }
 
-            .admin-main {
-                padding: 1rem;
-            }
-
-            .stats-grid,
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .table {
-                font-size: 0.8rem;
-            }
-
-            .table th,
-            .table td {
-                padding: 8px 4px;
-            }
-
+        @media (max-width: 768px) {
             .admin-header {
                 padding: 1rem;
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
             }
-
+            
             .admin-header-actions {
                 flex-direction: column;
                 width: 100%;
             }
-
+            
             .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .search-filter-bar {
+                flex-direction: column;
+            }
+            
+            .search-box,
+            .filter-select {
+                min-width: 100%;
+            }
+            
+            .admin-main {
+                padding: 1rem;
+            }
+            
+            .stats-grid,
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table {
+                font-size: 0.85rem;
+            }
+            
+            .table th,
+            .table td {
+                padding: 12px 8px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
                 width: 100%;
                 justify-content: center;
             }
         }
 
-        /* Print Styles */
-        @media print {
-            .admin-header,
-            .admin-sidebar,
-            .btn {
-                display: none;
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-
-            .admin-main {
-                padding: 0;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
 
-            .admin-card {
-                box-shadow: none;
-                border: 1px solid #000;
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--secondary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background: var(--success);
+            color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
     </style>
 </head>
 <body>
     <!-- Admin Header -->
-    <header class="admin-header">
+    <header class="admin-header glass">
         <h1>
-            <i class="fas fa-user-shield"></i>
-            Shalom Church Admin Panel
+            <i class="fas fa-church"></i>
+            Shalom Church Admin
         </h1>
         <div class="admin-header-actions">
-            <button class="btn btn-primary" onclick="window.print()">
-                <i class="fas fa-print"></i> Print Report
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="global-search" placeholder="Search everything...">
+            </div>
+            <button class="btn btn-primary" onclick="showNotification('Report printed!', 'success')">
+                <i class="fas fa-print"></i> Print
             </button>
             <a href="/" class="btn btn-outline">
-                <i class="fas fa-home"></i> Back to Website
+                <i class="fas fa-globe"></i> Website
             </a>
             <button class="btn btn-outline" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -538,7 +838,7 @@
     <!-- Admin Layout -->
     <div class="admin-layout">
         <!-- Sidebar Navigation -->
-        <nav class="admin-sidebar">
+        <nav class="admin-sidebar glass">
             <div class="admin-nav">
                 <ul>
                     <li>
@@ -588,36 +888,64 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="admin-main">
+        <main class="admin-main glass">
+            <!-- Search and Filter Bar -->
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="section-search" placeholder="Search in current section...">
+                </div>
+                <select class="filter-select" id="status-filter">
+                    <option value="">All Status</option>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                </select>
+                <select class="filter-select" id="date-filter">
+                    <option value="">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                </select>
+                <button class="btn-admin btn-info" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
             <!-- Dashboard Section -->
             <section id="dashboard" class="admin-section active">
                 <div class="admin-card">
-                    <h3><i class="fas fa-tachometer-alt"></i> Church Dashboard</h3>
+                    <h3><i class="fas fa-tachometer-alt"></i> Church Dashboard Overview</h3>
                     
                     <div class="stats-grid">
                         <div class="stat-card">
+                            <i class="fas fa-users"></i>
                             <span class="stat-number" id="total-members">0</span>
                             <span class="stat-label">Total Members</span>
                         </div>
                         <div class="stat-card">
+                            <i class="fas fa-clock"></i>
                             <span class="stat-number" id="pending-requests">0</span>
                             <span class="stat-label">Pending Requests</span>
                         </div>
                         <div class="stat-card">
+                            <i class="fas fa-calendar-alt"></i>
                             <span class="stat-number" id="upcoming-events">0</span>
                             <span class="stat-label">Upcoming Events</span>
                         </div>
                         <div class="stat-card">
+                            <i class="fas fa-child"></i>
                             <span class="stat-number" id="youth-members">0</span>
                             <span class="stat-label">Youth Members</span>
                         </div>
                         <div class="stat-card">
+                            <i class="fas fa-music"></i>
                             <span class="stat-number" id="worship-team">0</span>
                             <span class="stat-label">Worship Team</span>
                         </div>
                         <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
                             <span class="stat-number" id="new-this-month">0</span>
-                            <span class="stat-label">New This Month</span>
+                            <span class="stat-label">Growth This Month</span>
                         </div>
                     </div>
                 </div>
@@ -630,40 +958,28 @@
                             <h4>Post New Event</h4>
                             <p>Schedule church services and events</p>
                         </div>
-                        <div class="action-card" onclick="showSection('add-member')">
+                        <div class="action-card" onclick="showAddMemberModal()">
                             <i class="fas fa-user-plus"></i>
-                            <h4>Add New Member</h4>
-                            <p>Register new church members</p>
+                            <h4>Quick Add Member</h4>
+                            <p>Register new church members instantly</p>
                         </div>
                         <div class="action-card" onclick="showSection('visitor-requests')">
                             <i class="fas fa-door-open"></i>
                             <h4>Visitor Requests</h4>
-                            <p>Manage visit requests</p>
+                            <p>Manage visit requests and approvals</p>
                         </div>
                         <div class="action-card" onclick="showSection('members-management')">
                             <i class="fas fa-list"></i>
                             <h4>View All Members</h4>
-                            <p>Browse member database</p>
+                            <p>Browse complete member database</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="admin-card">
-                    <h3><i class="fas fa-chart-line"></i> Recent Activity</h3>
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Activity</th>
-                                    <th>Details</th>
-                                    <th>User</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recent-activity">
-                                <!-- Recent activity will be populated here -->
-                            </tbody>
-                        </table>
+                    <h3><i class="fas fa-calendar-alt"></i> Upcoming Services & Events</h3>
+                    <div id="upcoming-events-list">
+                        <div class="spinner" id="events-spinner"></div>
                     </div>
                 </div>
             </section>
@@ -671,66 +987,112 @@
             <!-- Events Management Section -->
             <section id="events-management" class="admin-section">
                 <div class="admin-card">
-                    <h3><i class="fas fa-calendar-plus"></i> Post Upcoming Service/Event</h3>
+                    <div class="form-header">
+                        <h3><i class="fas fa-calendar-plus"></i> Post New Service/Event</h3>
+                        <p class="form-subtitle">Fill in all required fields (*) and click Post Event</p>
+                    </div>
                     <form id="event-form">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="event-title">Event Title *</label>
+                                <label for="event-title"><i class="fas fa-heading"></i> Event Title *</label>
                                 <input type="text" id="event-title" placeholder="Enter event title" required>
                             </div>
                             <div class="form-group">
-                                <label for="event-type">Event Type *</label>
+                                <label for="event-type"><i class="fas fa-tag"></i> Event Type *</label>
                                 <select id="event-type" required>
                                     <option value="">Select type</option>
                                     <option value="service">Church Service</option>
                                     <option value="youth">Youth Event</option>
                                     <option value="prayer">Prayer Meeting</option>
+                                    <option value="bible">Bible Study</option>
                                     <option value="community">Community Event</option>
                                     <option value="special">Special Event</option>
                                 </select>
                             </div>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="event-date">Date *</label>
+                                <label for="event-date"><i class="fas fa-calendar-day"></i> Date *</label>
                                 <input type="date" id="event-date" required>
                             </div>
                             <div class="form-group">
-                                <label for="event-time">Time *</label>
-                                <input type="time" id="event-time" required>
+                                <label for="start-time"><i class="fas fa-clock"></i> Start Time *</label>
+                                <input type="time" id="start-time" required>
                             </div>
                             <div class="form-group">
-                                <label for="event-duration">Duration</label>
-                                <input type="text" id="event-duration" placeholder="e.g., 2 hours">
+                                <label for="end-time"><i class="fas fa-clock"></i> End Time *</label>
+                                <input type="time" id="end-time" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="event-location">Location *</label>
+                            <label for="event-location"><i class="fas fa-map-marker-alt"></i> Location *</label>
                             <input type="text" id="event-location" placeholder="Enter event location" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="event-description">Description *</label>
-                            <textarea id="event-description" placeholder="Enter event description" required></textarea>
+                            <label for="event-description"><i class="fas fa-align-left"></i> Description *</label>
+                            <textarea id="event-description" placeholder="Enter detailed description of the event..." required></textarea>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="event-speaker"><i class="fas fa-user"></i> Speaker/Leader</label>
+                                <input type="text" id="event-speaker" placeholder="Enter speaker name">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-contact"><i class="fas fa-phone"></i> Contact Person</label>
+                                <input type="text" id="event-contact" placeholder="Contact person for queries">
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="event-speaker">Speaker/Leader</label>
-                            <input type="text" id="event-speaker" placeholder="Optional: event speaker">
+                            <label><i class="fas fa-bullhorn"></i> Publish Options</label>
+                            <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="radio" name="publish" value="publish" checked> Publish Immediately
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="radio" name="publish" value="draft"> Save as Draft
+                                </label>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn-admin">
-                            <i class="fas fa-calendar-check"></i> Post Event
-                        </button>
+                        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" class="btn-admin btn-success">
+                                <i class="fas fa-calendar-check"></i> Post Event
+                            </button>
+                            <button type="button" class="btn-admin" onclick="clearEventForm()">
+                                <i class="fas fa-redo"></i> Clear Form
+                            </button>
+                        </div>
                     </form>
                 </div>
 
                 <div class="admin-card">
-                    <h3><i class="fas fa-list"></i> Upcoming Events</h3>
-                    <div id="events-list">
-                        <!-- Events will be dynamically added here -->
+                    <h3><i class="fas fa-list"></i> All Events</h3>
+                    <div class="table-container">
+                        <table class="table" id="events-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date & Time</th>
+                                    <th>Type</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="events-table-body">
+                                <!-- Events will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="no-events" class="empty-state" style="display: none;">
+                        <i class="fas fa-calendar-times"></i>
+                        <h4>No Events Found</h4>
+                        <p>Click "Post Event" to add your first event!</p>
                     </div>
                 </div>
             </section>
@@ -769,7 +1131,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Role</th>
+                                        <th>Phone</th>
                                         <th>Instrument</th>
                                         <th>Join Date</th>
                                         <th>Actions</th>
@@ -790,7 +1152,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Ministry</th>
+                                        <th>Phone</th>
                                         <th>Role</th>
                                         <th>Join Date</th>
                                         <th>Actions</th>
@@ -808,788 +1170,1018 @@
             <!-- Add Member Section -->
             <section id="add-member" class="admin-section">
                 <div class="admin-card">
-                    <h3><i class="fas fa-user-plus"></i> Add New Member</h3>
+                    <div class="form-header">
+                        <h3><i class="fas fa-user-plus"></i> Add New Church Member</h3>
+                        <p class="form-subtitle">Complete all fields and click Add Member</p>
+                    </div>
                     <form id="add-member-form">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="member-name">Full Name *</label>
-                                <input type="text" id="member-name" placeholder="Enter full name" required>
+                                <label for="member-firstname"><i class="fas fa-user"></i> First Name *</label>
+                                <input type="text" id="member-firstname" placeholder="Enter first name" required>
                             </div>
                             <div class="form-group">
-                                <label for="member-email">Email *</label>
+                                <label for="member-lastname"><i class="fas fa-user"></i> Last Name *</label>
+                                <input type="text" id="member-lastname" placeholder="Enter last name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="member-email"><i class="fas fa-envelope"></i> Email *</label>
                                 <input type="email" id="member-email" placeholder="Enter email address" required>
                             </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                             <div class="form-group">
-                                <label for="member-phone">Phone Number</label>
+                                <label for="member-phone"><i class="fas fa-phone"></i> Phone Number</label>
                                 <input type="tel" id="member-phone" placeholder="Enter phone number">
                             </div>
+                        </div>
+
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="member-age">Age</label>
-                                <input type="number" id="member-age" placeholder="Enter age" min="1" max="120">
+                                <label for="member-dob"><i class="fas fa-birthday-cake"></i> Date of Birth</label>
+                                <input type="date" id="member-dob">
+                            </div>
+                            <div class="form-group">
+                                <label for="member-baptism"><i class="fas fa-water"></i> Baptism Status</label>
+                                <select id="member-baptism">
+                                    <option value="Not Baptized">Not Baptized</option>
+                                    <option value="Baptized Here">Baptized Here</option>
+                                    <option value="Baptized Elsewhere">Baptized Elsewhere</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="member-ministry">Ministry/Team *</label>
-                                <select id="member-ministry" required>
-                                    <option value="">Select ministry/team</option>
-                                    <option value="youth">Youth</option>
-                                    <option value="worship">Worship Team</option>
-                                    <option value="prayer">Prayer Team</option>
-                                    <option value="ushers">Ushers</option>
-                                    <option value="children">Children's Ministry</option>
-                                    <option value="outreach">Outreach Ministry</option>
-                                    <option value="elder">Elders</option>
-                                    <option value="deacon">Deacons</option>
-                                    <option value="general">General Member</option>
+                                <label for="member-status"><i class="fas fa-user-tag"></i> Membership Status *</label>
+                                <select id="member-status" required>
+                                    <option value="">Select status</option>
+                                    <option value="Pastor">Pastor</option>
+                                    <option value="Worship Team">Worship Team</option>
+                                    <option value="Teens">Teens</option>
+                                    <option value="Youths">Youths</option>
+                                    <option value="Member">Member</option>
+                                    <option value="Visitor">Visitor</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="member-role">Role</label>
-                                <input type="text" id="member-role" placeholder="Enter role (if any)">
+                                <label for="member-department"><i class="fas fa-church"></i> Department/Ministry</label>
+                                <select id="member-department">
+                                    <option value="">Select department</option>
+                                    <option value="Worship">Worship & Music</option>
+                                    <option value="Youth">Youth Ministry</option>
+                                    <option value="Children">Children's Ministry</option>
+                                    <option value="Outreach">Outreach</option>
+                                    <option value="Prayer">Prayer Team</option>
+                                    <option value="Ushers">Ushers</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="member-join-date">Join Date *</label>
-                            <input type="date" id="member-join-date" required>
+                            <label for="member-address"><i class="fas fa-map-marker-alt"></i> Address</label>
+                            <textarea id="member-address" placeholder="Enter complete address..."></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="member-address">Address</label>
-                            <textarea id="member-address" placeholder="Enter member's address"></textarea>
+                            <label for="member-notes"><i class="fas fa-sticky-note"></i> Additional Notes</label>
+                            <textarea id="member-notes" placeholder="Any special notes about this member..."></textarea>
                         </div>
 
-                        <div class="form-group">
-                            <label for="member-notes">Notes</label>
-                            <textarea id="member-notes" placeholder="Any additional notes"></textarea>
+                        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" class="btn-admin btn-success">
+                                <i class="fas fa-user-plus"></i> Add Member
+                            </button>
+                            <button type="button" class="btn-admin" onclick="clearMemberForm()">
+                                <i class="fas fa-redo"></i> Clear Form
+                            </button>
                         </div>
-
-                        <button type="submit" class="btn-admin">
-                            <i class="fas fa-user-plus"></i> Add Member
-                        </button>
                     </form>
                 </div>
             </section>
 
-            <!-- Visitor Requests Section -->
-            <section id="visitor-requests" class="admin-section">
-                <div class="admin-card">
-                    <h3><i class="fas fa-door-open"></i> Visitor Requests Management</h3>
-                    <div class="table-container">
-                        <table class="table" id="visitor-requests-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Visit Date</th>
-                                    <th>Service Type</th>
-                                    <th>Message</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Visitor requests will be dynamically added here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Church Management Section -->
-            <section id="church-management" class="admin-section">
-                <div class="admin-card">
-                    <h3><i class="fas fa-church"></i> Church Information</h3>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="form-group">
-                            <label for="church-name">Church Name</label>
-                            <input type="text" id="church-name" value="Shalom Ministry Church">
-                        </div>
-                        <div class="form-group">
-                            <label for="church-email">Church Email</label>
-                            <input type="email" id="church-email" value="info@shalomchurch.org">
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="form-group">
-                            <label for="church-phone">Church Phone</label>
-                            <input type="tel" id="church-phone" value="(555) 123-4567">
-                        </div>
-                        <div class="form-group">
-                            <label for="church-pastor">Pastor Name</label>
-                            <input type="text" id="church-pastor" value="Pastor John Smith">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="church-address">Church Address</label>
-                        <textarea id="church-address">shalom ministry church, gawula, Giyani</textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="church-description">Church Description</label>
-                        <textarea id="church-description">Bringing peace, hope, and wholeness to our community through the love of Christ.</textarea>
-                    </div>
-
-                    <button class="btn-admin">
-                        <i class="fas fa-save"></i> Save Church Information
-                    </button>
-                </div>
-
-                <div class="admin-card">
-                    <h3><i class="fas fa-clock"></i> Service Times Management</h3>
-                    <form id="service-times-form">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label for="sunday-morning">Sunday Morning Service</label>
-                                <input type="text" id="sunday-morning" value="10:00 AM">
-                            </div>
-                            <div class="form-group">
-                                <label for="sunday-evening">Sunday Evening Service</label>
-                                <input type="text" id="sunday-evening" value="14:00 PM">
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label for="midweek-service">Midweek Service</label>
-                                <input type="text" id="midweek-service" value="Monday & Wednesdays 5:00 PM">
-                            </div>
-                            <div class="form-group">
-                                <label for="youth-service">Youth Service</label>
-                                <input type="text" id="youth-service" value="Fridays 7:00 PM">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="prayer-meeting">Prayer Meeting Times</label>
-                            <input type="text" id="prayer-meeting" value="Tuesdays 6:00 PM">
-                        </div>
-
-                        <button type="submit" class="btn-admin">
-                            <i class="fas fa-clock"></i> Update Service Times
-                        </button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Reports Section -->
-            <section id="reports" class="admin-section">
-                <div class="admin-card">
-                    <h3><i class="fas fa-chart-bar"></i> Church Analytics & Reports</h3>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <span class="stat-number" id="report-total-members">0</span>
-                            <span class="stat-label">Total Members</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" id="report-growth">0%</span>
-                            <span class="stat-label">Growth This Year</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" id="report-youth">0</span>
-                            <span class="stat-label">Youth Percentage</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" id="report-visitors">0</span>
-                            <span class="stat-label">Monthly Visitors</span>
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
-                        <button class="btn-admin btn-primary">
-                            <i class="fas fa-download"></i> Export Member List
-                        </button>
-                        <button class="btn-admin btn-success">
-                            <i class="fas fa-file-pdf"></i> Generate Report
-                        </button>
-                    </div>
-                </div>
-
-                <div class="admin-card">
-                    <h3><i class="fas fa-calendar"></i> Attendance Trends</h3>
-                    <p style="text-align: center; padding: 2rem; color: var(--text-light);">
-                        <i class="fas fa-chart-line fa-3x"></i><br>
-                        Attendance charts will be displayed here
-                    </p>
-                </div>
-            </section>
+            <!-- Add more sections as needed... -->
         </main>
     </div>
 
+    <!-- Add Member Modal (for quick add) -->
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-user-plus"></i> Quick Add Member</h3>
+            <form id="quick-add-member-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="quick-firstname">First Name *</label>
+                        <input type="text" id="quick-firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quick-lastname">Last Name *</label>
+                        <input type="text" id="quick-lastname" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="quick-email">Email *</label>
+                        <input type="email" id="quick-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quick-status">Status</label>
+                        <select id="quick-status">
+                            <option value="Visitor">Visitor</option>
+                            <option value="Member">Member</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn-admin btn-success">Add Member</button>
+                    <button type="button" class="btn-admin" onclick="hideModal('addMemberModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content">
+            <div id="event-details-content">
+                <!-- Event details will be populated here -->
+            </div>
+            <button class="btn-admin" onclick="hideModal('eventDetailsModal')" style="margin-top: 1.5rem; width: 100%;">Close</button>
+        </div>
+    </div>
+
     <script>
-        // Sample data storage (in a real app, this would be a database)
-        let churchData = {
-            members: [
-                {
-                    id: 1,
-                    name: "John Doe",
-                    email: "john@example.com",
-                    phone: "555-0101",
-                    age: 25,
-                    ministry: "youth",
-                    role: "Member",
-                    joinDate: "2024-01-15",
-                    address: "123 Main St, Giyani",
-                    notes: "Active in youth activities"
-                },
-                {
-                    id: 2,
-                    name: "Sarah Smith",
-                    email: "sarah@example.com",
-                    phone: "555-0102",
-                    age: 30,
-                    ministry: "worship",
-                    role: "Lead Singer",
-                    joinDate: "2024-02-20",
-                    address: "456 Oak Ave, Giyani",
-                    notes: "Plays guitar and sings"
-                },
-                {
-                    id: 3,
-                    name: "Mike Johnson",
-                    email: "mike@example.com",
-                    phone: "555-0103",
-                    age: 45,
-                    ministry: "elder",
-                    role: "Elder",
-                    joinDate: "2023-11-10",
-                    address: "789 Pine Rd, Giyani",
-                    notes: "Church elder"
-                }
-            ],
-            events: [
-                {
-                    id: 1,
-                    title: "Community Picnic",
-                    date: "2024-06-15",
-                    time: "12:00",
-                    duration: "4 hours",
-                    location: "Church Grounds",
-                    description: "Join us for a fun community picnic with food, games, and fellowship",
-                    type: "community",
-                    speaker: ""
-                },
-                {
-                    id: 2,
-                    title: "Sunday Worship Service",
-                    date: "2024-06-16",
-                    time: "10:00",
-                    duration: "2 hours",
-                    location: "Main Sanctuary",
-                    description: "Weekly worship service with communion",
-                    type: "service",
-                    speaker: "Pastor John Smith"
-                }
-            ],
-            visitorRequests: [
-                {
-                    id: 1,
-                    name: "Emily Davis",
-                    email: "emily@example.com",
-                    phone: "555-0104",
-                    visitDate: "2024-06-20",
-                    serviceType: "Sunday Morning",
-                    message: "I'd like to visit your church this Sunday with my family",
-                    status: "pending"
-                },
-                {
-                    id: 2,
-                    name: "Robert Brown",
-                    email: "robert@example.com",
-                    phone: "555-0105",
-                    visitDate: "2024-06-16",
-                    serviceType: "Youth Service",
-                    message: "Interested in your youth programs",
-                    status: "accepted"
-                }
-            ],
-            activity: [
-                {
-                    date: "2024-06-10",
-                    activity: "New Member Added",
-                    details: "Sarah Smith joined Worship Team",
-                    user: "Admin"
-                },
-                {
-                    date: "2024-06-09",
-                    activity: "Event Created",
-                    details: "Community Picnic scheduled",
-                    user: "Admin"
-                },
-                {
-                    date: "2024-06-08",
-                    activity: "Visitor Request Accepted",
-                    details: "Robert Brown's visit approved",
-                    user: "Admin"
-                }
-            ]
-        };
+        // Global State
+        let allMembers = [];
+        let allEvents = [];
+        let currentFilter = '';
 
-        // Initialize the dashboard
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            updateDashboardStats();
-            loadMembersData();
-            loadEventsData();
-            loadVisitorRequests();
-            loadRecentActivity();
-            
-            // Set current date for forms
-            document.getElementById('member-join-date').valueAsDate = new Date();
-            document.getElementById('event-date').valueAsDate = new Date();
+            initializeDashboard();
+            setupEventListeners();
         });
 
-        // Navigation
-        document.querySelectorAll('.admin-nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const sectionId = this.getAttribute('data-section');
-                
-                // Update active nav link
-                document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Show selected section
-                showSection(sectionId);
+        // Setup all event listeners
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.admin-nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    setActiveSection(sectionId);
+                });
             });
-        });
 
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.admin-section').forEach(section => {
-                section.classList.remove('active');
+            // Global search
+            document.getElementById('global-search').addEventListener('input', function(e) {
+                performGlobalSearch(e.target.value);
             });
-            
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
+
+            // Section search
+            document.getElementById('section-search').addEventListener('input', function(e) {
+                filterCurrentSection(e.target.value);
+            });
+
+            // Filters
+            document.getElementById('status-filter').addEventListener('change', function(e) {
+                filterByStatus(e.target.value);
+            });
+
+            document.getElementById('date-filter').addEventListener('change', function(e) {
+                filterByDate(e.target.value);
+            });
+
+            // Forms
+            document.getElementById('event-form').addEventListener('submit', handleEventSubmit);
+            document.getElementById('add-member-form').addEventListener('submit', handleMemberSubmit);
+            document.getElementById('quick-add-member-form').addEventListener('submit', handleQuickMemberSubmit);
         }
 
-        // Dashboard Statistics
+        // Initialize dashboard
+        async function initializeDashboard() {
+            showLoading('events-spinner');
+            try {
+                await Promise.all([
+                    loadMembers(),
+                    loadEvents()
+                ]);
+                updateDashboardStats();
+                loadUpcomingEvents();
+                loadMembersData();
+                loadEventsTable();
+            } catch (error) {
+                showNotification('Error loading data: ' + error.message, 'error');
+            }
+        }
+
+        // API Functions
+        async function loadMembers() {
+            try {
+                const response = await fetch('/api/members');
+                if (!response.ok) throw new Error('Failed to fetch members');
+                const data = await response.json();
+                allMembers = data.members || [];
+                return allMembers;
+            } catch (error) {
+                console.error('Error loading members:', error);
+                allMembers = [];
+                return [];
+            }
+        }
+
+        async function loadEvents() {
+            try {
+                const response = await fetch('/api/events');
+                if (!response.ok) throw new Error('Failed to fetch events');
+                const data = await response.json();
+                allEvents = data.events || [];
+                return allEvents;
+            } catch (error) {
+                console.error('Error loading events:', error);
+                allEvents = [];
+                return [];
+            }
+        }
+
+        async function createEvent(eventData) {
+            try {
+                const response = await fetch('/api/events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(eventData)
+                });
+                if (!response.ok) throw new Error('Failed to create event');
+                return await response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        async function createMember(memberData) {
+            try {
+                const response = await fetch('/api/members', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(memberData)
+                });
+                if (!response.ok) throw new Error('Failed to create member');
+                return await response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        // Navigation
+        function setActiveSection(sectionId) {
+            // Update navigation
+            document.querySelectorAll('.admin-nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Show section
+            document.querySelectorAll('.admin-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update search placeholder
+            const placeholders = {
+                'dashboard': 'Search dashboard...',
+                'events-management': 'Search events by title, location, speaker...',
+                'members-management': 'Search members by name, email, status...',
+                'add-member': 'Search...',
+                'visitor-requests': 'Search visitor requests...',
+                'church-management': 'Search church settings...',
+                'reports': 'Search reports...'
+            };
+            document.getElementById('section-search').placeholder = placeholders[sectionId] || 'Search...';
+        }
+
+        // Search Functions
+        function performGlobalSearch(query) {
+            if (!query.trim()) return;
+            
+            const results = [];
+            
+            // Search in members
+            allMembers.forEach(member => {
+                const searchableText = Object.values(member).join(' ').toLowerCase();
+                if (searchableText.includes(query.toLowerCase())) {
+                    results.push({ type: 'Member', data: member });
+                }
+            });
+            
+            // Search in events
+            allEvents.forEach(event => {
+                const searchableText = Object.values(event).join(' ').toLowerCase();
+                if (searchableText.includes(query.toLowerCase())) {
+                    results.push({ type: 'Event', data: event });
+                }
+            });
+            
+            if (results.length > 0) {
+                showSearchResultsModal(results, query);
+            } else {
+                showNotification('No results found for: ' + query, 'info');
+            }
+        }
+
+        function filterCurrentSection(query) {
+            const currentSection = document.querySelector('.admin-section.active').id;
+            
+            switch(currentSection) {
+                case 'members-management':
+                    filterMembers(query);
+                    break;
+                case 'events-management':
+                    filterEvents(query);
+                    break;
+                // Add more cases as needed
+            }
+        }
+
+        // Dashboard Functions
         function updateDashboardStats() {
-            const totalMembers = churchData.members.length;
-            const pendingRequests = churchData.visitorRequests.filter(req => req.status === 'pending').length;
-            const upcomingEvents = churchData.events.length;
-            const youthMembers = churchData.members.filter(member => member.ministry === 'youth').length;
-            const worshipTeam = churchData.members.filter(member => member.ministry === 'worship').length;
+            const totalMembers = allMembers.length;
+            const youthMembers = allMembers.filter(m => 
+                m.membership_status === 'Teens' || m.membership_status === 'Youths'
+            ).length;
+            const worshipTeam = allMembers.filter(m => 
+                m.membership_status === 'Worship Team'
+            ).length;
+            const upcomingEvents = allEvents.filter(e => 
+                new Date(e.event_date) >= new Date()
+            ).length;
             
             // Calculate new members this month
             const currentMonth = new Date().getMonth();
             const currentYear = new Date().getFullYear();
-            const newThisMonth = churchData.members.filter(member => {
-                const joinDate = new Date(member.joinDate);
+            const newThisMonth = allMembers.filter(member => {
+                const joinDate = new Date(member.date_joined);
                 return joinDate.getMonth() === currentMonth && joinDate.getFullYear() === currentYear;
             }).length;
 
             document.getElementById('total-members').textContent = totalMembers;
-            document.getElementById('pending-requests').textContent = pendingRequests;
-            document.getElementById('upcoming-events').textContent = upcomingEvents;
             document.getElementById('youth-members').textContent = youthMembers;
             document.getElementById('worship-team').textContent = worshipTeam;
+            document.getElementById('upcoming-events').textContent = upcomingEvents;
             document.getElementById('new-this-month').textContent = newThisMonth;
-
-            // Update report stats
-            document.getElementById('report-total-members').textContent = totalMembers;
-            document.getElementById('report-growth').textContent = '12%';
-            document.getElementById('report-youth').textContent = Math.round((youthMembers / totalMembers) * 100) + '%';
-            document.getElementById('report-visitors').textContent = '45';
         }
 
-        function loadRecentActivity() {
-            const activityTable = document.querySelector('#recent-activity');
-            activityTable.innerHTML = '';
+        function loadUpcomingEvents() {
+            const container = document.getElementById('upcoming-events-list');
+            container.innerHTML = '';
+            
+            const upcoming = allEvents
+                .filter(event => new Date(event.event_date) >= new Date())
+                .slice(0, 5); // Show only 5 upcoming events
+            
+            if (upcoming.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <h4>No Upcoming Events</h4>
+                        <p>Schedule your first event!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            upcoming.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <div class="event-date">
+                        ${new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                    </div>
+                    <h4 style="margin-bottom: 0.5rem; color: var(--primary);">${event.title}</h4>
+                    <p style="margin-bottom: 0.5rem; color: var(--gray);">
+                        <i class="far fa-clock"></i> ${event.start_time} - ${event.end_time || 'TBD'}
+                    </p>
+                    <p style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-map-marker-alt"></i> ${event.location}
+                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <span class="status-badge ${event.is_published ? 'status-published' : 'status-draft'}">
+                            ${event.is_published ? 'Published' : 'Draft'}
+                        </span>
+                        <button class="action-btn" onclick="viewEventDetails(${event.event_id})">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </div>
+                `;
+                container.appendChild(eventCard);
+            });
+        }
 
-            churchData.activity.forEach(activity => {
+        // Events Management
+        async function handleEventSubmit(e) {
+            e.preventDefault();
+            
+            const eventData = {
+                title: document.getElementById('event-title').value,
+                description: document.getElementById('event-description').value,
+                event_date: document.getElementById('event-date').value,
+                start_time: document.getElementById('start-time').value,
+                end_time: document.getElementById('end-time').value || null,
+                location: document.getElementById('event-location').value,
+                event_type: document.getElementById('event-type').value,
+                speaker: document.getElementById('event-speaker').value || null,
+                contact: document.getElementById('event-contact').value || null,
+                is_published: document.querySelector('input[name="publish"]:checked').value === 'publish'
+            };
+
+            try {
+                const result = await createEvent(eventData);
+                showNotification('Event created successfully!', 'success');
+                clearEventForm();
+                await loadEvents(); // Reload events
+                updateDashboardStats();
+                loadUpcomingEvents();
+                loadEventsTable();
+            } catch (error) {
+                showNotification('Error creating event: ' + error.message, 'error');
+            }
+        }
+
+        function loadEventsTable() {
+            const tbody = document.getElementById('events-table-body');
+            tbody.innerHTML = '';
+            
+            if (allEvents.length === 0) {
+                document.getElementById('no-events').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('no-events').style.display = 'none';
+            
+            allEvents.forEach(event => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${activity.date}</td>
-                    <td>${activity.activity}</td>
-                    <td>${activity.details}</td>
-                    <td>${activity.user}</td>
+                    <td>
+                        <strong>${event.title}</strong><br>
+                        <small style="color: var(--gray);">${event.description.substring(0, 50)}...</small>
+                    </td>
+                    <td>
+                        ${new Date(event.event_date).toLocaleDateString()}<br>
+                        <small>${event.start_time}${event.end_time ? ` - ${event.end_time}` : ''}</small>
+                    </td>
+                    <td>${event.event_type || 'Service'}</td>
+                    <td>${event.location}</td>
+                    <td>
+                        <span class="status-badge ${event.is_published ? 'status-published' : 'status-draft'}">
+                            ${event.is_published ? 'Published' : 'Draft'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="viewEventDetails(${event.event_id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="editEvent(${event.event_id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn" onclick="deleteEvent(${event.event_id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
                 `;
-                activityTable.appendChild(row);
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterEvents(query) {
+            const filtered = allEvents.filter(event => 
+                event.title.toLowerCase().includes(query.toLowerCase()) ||
+                event.description.toLowerCase().includes(query.toLowerCase()) ||
+                event.location.toLowerCase().includes(query.toLowerCase()) ||
+                (event.speaker && event.speaker.toLowerCase().includes(query.toLowerCase()))
+            );
+            
+            // Update table with filtered results
+            const tbody = document.getElementById('events-table-body');
+            tbody.innerHTML = '';
+            
+            filtered.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.title}</td>
+                    <td>${new Date(event.event_date).toLocaleDateString()}</td>
+                    <td>${event.event_type || 'Service'}</td>
+                    <td>${event.location}</td>
+                    <td>
+                        <span class="status-badge ${event.is_published ? 'status-published' : 'status-draft'}">
+                            ${event.is_published ? 'Published' : 'Draft'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="viewEventDetails(${event.event_id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="editEvent(${event.event_id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn" onclick="deleteEvent(${event.event_id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
             });
         }
 
         // Members Management
+        async function handleMemberSubmit(e) {
+            e.preventDefault();
+            
+            const memberData = {
+                first_name: document.getElementById('member-firstname').value,
+                last_name: document.getElementById('member-lastname').value,
+                email: document.getElementById('member-email').value,
+                phone: document.getElementById('member-phone').value || null,
+                date_of_birth: document.getElementById('member-dob').value || null,
+                baptism_status: document.getElementById('member-baptism').value,
+                membership_status: document.getElementById('member-status').value,
+                department: document.getElementById('member-department').value || null,
+                address: document.getElementById('member-address').value || null,
+                notes: document.getElementById('member-notes').value || null
+            };
+
+            try {
+                const result = await createMember(memberData);
+                showNotification('Member added successfully!', 'success');
+                clearMemberForm();
+                await loadMembers(); // Reload members
+                updateDashboardStats();
+                loadMembersData();
+            } catch (error) {
+                showNotification('Error adding member: ' + error.message, 'error');
+            }
+        }
+
+        async function handleQuickMemberSubmit(e) {
+            e.preventDefault();
+            
+            const memberData = {
+                first_name: document.getElementById('quick-firstname').value,
+                last_name: document.getElementById('quick-lastname').value,
+                email: document.getElementById('quick-email').value,
+                membership_status: document.getElementById('quick-status').value
+            };
+
+            try {
+                await createMember(memberData);
+                showNotification('Member added successfully!', 'success');
+                hideModal('addMemberModal');
+                await loadMembers();
+                updateDashboardStats();
+            } catch (error) {
+                showNotification('Error adding member: ' + error.message, 'error');
+            }
+        }
+
         function loadMembersData() {
+            // Load into different tables based on status
             const youthTable = document.querySelector('#youth-members-table tbody');
             const worshipTable = document.querySelector('#worship-team-table tbody');
             const otherTable = document.querySelector('#other-teams-table tbody');
 
-            // Clear existing data
             youthTable.innerHTML = '';
             worshipTable.innerHTML = '';
             otherTable.innerHTML = '';
 
-            churchData.members.forEach(member => {
-                const row = document.createElement('tr');
+            allMembers.forEach(member => {
+                const row = createMemberRow(member);
                 
-                if (member.ministry === 'youth') {
-                    row.innerHTML = `
-                        <td>${member.name}</td>
-                        <td>${member.email}</td>
-                        <td>${member.phone || 'N/A'}</td>
-                        <td>${member.age || 'N/A'}</td>
-                        <td>${member.joinDate}</td>
-                        <td>
-                            <button class="btn-admin btn-warning" onclick="editMember(${member.id})">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-admin btn-danger" onclick="deleteMember(${member.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    `;
+                if (member.membership_status === 'Teens' || member.membership_status === 'Youths') {
                     youthTable.appendChild(row);
-                } else if (member.ministry === 'worship') {
-                    row.innerHTML = `
-                        <td>${member.name}</td>
-                        <td>${member.email}</td>
-                        <td>${member.role}</td>
-                        <td>${member.notes.includes('guitar') ? 'Guitar' : 'Vocals'}</td>
-                        <td>${member.joinDate}</td>
-                        <td>
-                            <button class="btn-admin btn-warning" onclick="editMember(${member.id})">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-admin btn-danger" onclick="deleteMember(${member.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    `;
+                } else if (member.membership_status === 'Worship Team') {
                     worshipTable.appendChild(row);
                 } else {
-                    row.innerHTML = `
-                        <td>${member.name}</td>
-                        <td>${member.email}</td>
-                        <td>${member.ministry}</td>
-                        <td>${member.role}</td>
-                        <td>${member.joinDate}</td>
-                        <td>
-                            <button class="btn-admin btn-warning" onclick="editMember(${member.id})">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-admin btn-danger" onclick="deleteMember(${member.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    `;
                     otherTable.appendChild(row);
                 }
             });
         }
 
-        function deleteMember(memberId) {
-            if (confirm('Are you sure you want to delete this member?')) {
-                churchData.members = churchData.members.filter(member => member.id !== memberId);
-                loadMembersData();
-                updateDashboardStats();
+        function createMemberRow(member) {
+            const row = document.createElement('tr');
+            const fullName = `${member.first_name} ${member.last_name}`;
+            const age = member.date_of_birth ? 
+                calculateAge(new Date(member.date_of_birth)) : 'N/A';
+            
+            row.innerHTML = `
+                <td>
+                    <strong>${fullName}</strong><br>
+                    <small style="color: var(--gray);">${member.membership_status}</small>
+                </td>
+                <td>${member.email || 'N/A'}</td>
+                <td>${member.phone || 'N/A'}</td>
+                <td>${member.baptism_status || 'N/A'}</td>
+                <td>${new Date(member.date_joined).toLocaleDateString()}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="viewMemberDetails('${member.member_id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn" onclick="editMember('${member.member_id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" onclick="deleteMember('${member.member_id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            return row;
+        }
+
+        function filterMembers(query) {
+            const filtered = allMembers.filter(member => 
+                `${member.first_name} ${member.last_name}`.toLowerCase().includes(query.toLowerCase()) ||
+                (member.email && member.email.toLowerCase().includes(query.toLowerCase())) ||
+                (member.phone && member.phone.toLowerCase().includes(query.toLowerCase())) ||
+                member.membership_status.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            // Update tables with filtered results
+            const youthTable = document.querySelector('#youth-members-table tbody');
+            const worshipTable = document.querySelector('#worship-team-table tbody');
+            const otherTable = document.querySelector('#other-teams-table tbody');
+
+            youthTable.innerHTML = '';
+            worshipTable.innerHTML = '';
+            otherTable.innerHTML = '';
+
+            filtered.forEach(member => {
+                const row = createMemberRow(member);
                 
-                // Add to activity
-                churchData.activity.unshift({
-                    date: new Date().toISOString().split('T')[0],
-                    activity: 'Member Deleted',
-                    details: `Member ID ${memberId} removed`,
-                    user: 'Admin'
-                });
-                loadRecentActivity();
+                if (member.membership_status === 'Teens' || member.membership_status === 'Youths') {
+                    youthTable.appendChild(row);
+                } else if (member.membership_status === 'Worship Team') {
+                    worshipTable.appendChild(row);
+                } else {
+                    otherTable.appendChild(row);
+                }
+            });
+        }
+
+        // Helper Functions
+        function calculateAge(birthDate) {
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
             }
+            return age;
+        }
+
+        function clearEventForm() {
+            document.getElementById('event-form').reset();
+            document.getElementById('event-date').valueAsDate = new Date();
+        }
+
+        function clearMemberForm() {
+            document.getElementById('add-member-form').reset();
+        }
+
+        function showAddMemberModal() {
+            document.getElementById('addMemberModal').style.display = 'flex';
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function viewEventDetails(eventId) {
+            const event = allEvents.find(e => e.event_id === eventId);
+            if (!event) return;
+            
+            const content = document.getElementById('event-details-content');
+            content.innerHTML = `
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">${event.title}</h3>
+                <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Time:</strong> ${event.start_time}${event.end_time ? ` - ${event.end_time}` : ''}</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Location:</strong> ${event.location}</p>
+                ${event.speaker ? `<p style="margin-bottom: 0.5rem;"><strong>Speaker:</strong> ${event.speaker}</p>` : ''}
+                ${event.contact ? `<p style="margin-bottom: 1rem;"><strong>Contact:</strong> ${event.contact}</p>` : ''}
+                <div style="margin: 1rem 0; padding: 1rem; background: var(--light); border-radius: 8px;">
+                    <strong>Description:</strong>
+                    <p style="margin-top: 0.5rem;">${event.description}</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <span class="status-badge ${event.is_published ? 'status-published' : 'status-draft'}">
+                        ${event.is_published ? 'Published' : 'Draft'}
+                    </span>
+                    <span class="status-badge" style="background: rgba(52, 152, 219, 0.15); color: var(--accent);">
+                        ${event.event_type || 'Service'}
+                    </span>
+                </div>
+            `;
+            
+            document.getElementById('eventDetailsModal').style.display = 'flex';
+        }
+
+        function viewMemberDetails(memberId) {
+            const member = allMembers.find(m => m.member_id === memberId);
+            if (!member) return;
+            
+            showNotification(`Viewing details for: ${member.first_name} ${member.last_name}`, 'info');
+            // Implement detailed member modal
         }
 
         function editMember(memberId) {
-            alert('Edit functionality would open a modal to edit member details. Member ID: ' + memberId);
+            showNotification('Edit member functionality coming soon!', 'info');
         }
 
-        // Add Member Form
-        document.getElementById('add-member-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        async function deleteMember(memberId) {
+            if (!confirm('Are you sure you want to delete this member?')) return;
             
-            const newMember = {
-                id: Date.now(),
-                name: document.getElementById('member-name').value,
-                email: document.getElementById('member-email').value,
-                phone: document.getElementById('member-phone').value,
-                age: document.getElementById('member-age').value,
-                ministry: document.getElementById('member-ministry').value,
-                role: document.getElementById('member-role').value,
-                joinDate: document.getElementById('member-join-date').value,
-                address: document.getElementById('member-address').value,
-                notes: document.getElementById('member-notes').value
-            };
-
-            churchData.members.push(newMember);
-            loadMembersData();
-            updateDashboardStats();
-            
-            // Add to activity
-            churchData.activity.unshift({
-                date: new Date().toISOString().split('T')[0],
-                activity: 'New Member Added',
-                details: `${newMember.name} joined ${newMember.ministry}`,
-                user: 'Admin'
-            });
-            loadRecentActivity();
-            
-            // Reset form
-            this.reset();
-            document.getElementById('member-join-date').valueAsDate = new Date();
-            
-            alert('Member added successfully!');
-            showSection('members-management');
-        });
-
-        // Events Management
-        function loadEventsData() {
-            const eventsList = document.getElementById('events-list');
-            eventsList.innerHTML = '';
-
-            if (churchData.events.length === 0) {
-                eventsList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No events scheduled yet.</p>';
-                return;
-            }
-
-            churchData.events.forEach(event => {
-                const eventCard = document.createElement('div');
-                eventCard.className = 'admin-card';
-                eventCard.style.marginBottom = '1rem';
-                eventCard.innerHTML = `
-                    <div style="display: flex; justify-content: between; align-items: start;">
-                        <div style="flex: 1;">
-                            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">${event.title}</h4>
-                            <p style="margin-bottom: 0.5rem; color: var(--text-light);">
-                                <i class="far fa-calendar"></i> ${event.date} at ${event.time}
-                                ${event.duration ? ` • ${event.duration}` : ''}
-                            </p>
-                            <p style="margin-bottom: 0.5rem;">
-                                <i class="fas fa-map-marker-alt"></i> ${event.location}
-                            </p>
-                            ${event.speaker ? `<p style="margin-bottom: 0.5rem;"><i class="fas fa-user"></i> ${event.speaker}</p>` : ''}
-                            <p style="margin-bottom: 1rem;">${event.description}</p>
-                            <span class="status-badge ${event.type === 'service' ? 'status-accepted' : 'status-pending'}">
-                                ${event.type}
-                            </span>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn-admin btn-warning" onclick="editEvent(${event.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-admin btn-danger" onclick="deleteEvent(${event.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                eventsList.appendChild(eventCard);
-            });
-        }
-
-        document.getElementById('event-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const newEvent = {
-                id: Date.now(),
-                title: document.getElementById('event-title').value,
-                date: document.getElementById('event-date').value,
-                time: document.getElementById('event-time').value,
-                duration: document.getElementById('event-duration').value,
-                location: document.getElementById('event-location').value,
-                description: document.getElementById('event-description').value,
-                type: document.getElementById('event-type').value,
-                speaker: document.getElementById('event-speaker').value
-            };
-
-            churchData.events.push(newEvent);
-            loadEventsData();
-            updateDashboardStats();
-            
-            // Add to activity
-            churchData.activity.unshift({
-                date: new Date().toISOString().split('T')[0],
-                activity: 'Event Created',
-                details: `${newEvent.title} scheduled`,
-                user: 'Admin'
-            });
-            loadRecentActivity();
-            
-            // Reset form
-            this.reset();
-            document.getElementById('event-date').valueAsDate = new Date();
-            
-            alert('Event posted successfully!');
-        });
-
-        function deleteEvent(eventId) {
-            if (confirm('Are you sure you want to delete this event?')) {
-                churchData.events = churchData.events.filter(event => event.id !== eventId);
-                loadEventsData();
-                updateDashboardStats();
+            try {
+                const response = await fetch(`/api/members/${memberId}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Failed to delete member');
                 
-                // Add to activity
-                churchData.activity.unshift({
-                    date: new Date().toISOString().split('T')[0],
-                    activity: 'Event Deleted',
-                    details: `Event ID ${eventId} removed`,
-                    user: 'Admin'
-                });
-                loadRecentActivity();
+                showNotification('Member deleted successfully!', 'success');
+                await loadMembers();
+                updateDashboardStats();
+                loadMembersData();
+            } catch (error) {
+                showNotification('Error deleting member: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteEvent(eventId) {
+            if (!confirm('Are you sure you want to delete this event?')) return;
+            
+            try {
+                const response = await fetch(`/api/events/${eventId}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Failed to delete event');
+                
+                showNotification('Event deleted successfully!', 'success');
+                await loadEvents();
+                updateDashboardStats();
+                loadUpcomingEvents();
+                loadEventsTable();
+            } catch (error) {
+                showNotification('Error deleting event: ' + error.message, 'error');
             }
         }
 
         function editEvent(eventId) {
-            alert('Edit functionality would open a modal to edit event details. Event ID: ' + eventId);
+            showNotification('Edit event functionality coming soon!', 'info');
         }
 
-        // Visitor Requests Management
-        function loadVisitorRequests() {
-            const requestsTable = document.querySelector('#visitor-requests-table tbody');
-            requestsTable.innerHTML = '';
+        function exportData() {
+            const currentSection = document.querySelector('.admin-section.active').id;
+            let data, filename;
+            
+            switch(currentSection) {
+                case 'members-management':
+                    data = allMembers;
+                    filename = 'church-members.csv';
+                    break;
+                case 'events-management':
+                    data = allEvents;
+                    filename = 'church-events.csv';
+                    break;
+                default:
+                    data = [];
+                    filename = 'church-data.csv';
+            }
+            
+            if (data.length === 0) {
+                showNotification('No data to export', 'info');
+                return;
+            }
+            
+            // Simple CSV export
+            const headers = Object.keys(data[0]);
+            const csv = [
+                headers.join(','),
+                ...data.map(row => headers.map(header => JSON.stringify(row[header] || '')).join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            showNotification('Data exported successfully!', 'success');
+        }
 
-            churchData.visitorRequests.forEach(request => {
+        function filterByStatus(status) {
+            if (!status) {
+                loadEventsTable();
+                return;
+            }
+            
+            const filtered = allEvents.filter(event => 
+                (status === 'published' && event.is_published) ||
+                (status === 'draft' && !event.is_published)
+            );
+            
+            // Update table
+            const tbody = document.getElementById('events-table-body');
+            tbody.innerHTML = '';
+            
+            filtered.forEach(event => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${request.name}</td>
-                    <td>${request.email}</td>
-                    <td>${request.phone}</td>
-                    <td>${request.visitDate}</td>
-                    <td>${request.serviceType}</td>
-                    <td style="max-width: 200px;">${request.message}</td>
+                    <td>${event.title}</td>
+                    <td>${new Date(event.event_date).toLocaleDateString()}</td>
+                    <td>${event.event_type || 'Service'}</td>
+                    <td>${event.location}</td>
                     <td>
-                        <span class="status-badge status-${request.status}">
-                            ${request.status}
+                        <span class="status-badge ${event.is_published ? 'status-published' : 'status-draft'}">
+                            ${event.is_published ? 'Published' : 'Published'}
                         </span>
                     </td>
                     <td>
-                        ${request.status === 'pending' ? `
-                            <button class="btn-admin btn-success" onclick="acceptVisitorRequest(${request.id})" style="margin-bottom: 0.25rem;">
-                                <i class="fas fa-check"></i> Accept
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="viewEventDetails(${event.event_id})">
+                                <i class="fas fa-eye"></i>
                             </button>
-                            <button class="btn-admin btn-danger" onclick="rejectVisitorRequest(${request.id})">
-                                <i class="fas fa-times"></i> Reject
+                            <button class="action-btn" onclick="editEvent(${event.event_id})">
+                                <i class="fas fa-edit"></i>
                             </button>
-                        ` : 'Processed'}
+                            <button class="action-btn" onclick="deleteEvent(${event.event_id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     </td>
                 `;
-                requestsTable.appendChild(row);
+                tbody.appendChild(row);
             });
         }
 
-        function acceptVisitorRequest(requestId) {
-            const request = churchData.visitorRequests.find(req => req.id === requestId);
-            if (request) {
-                request.status = 'accepted';
-                
-                // Simulate sending email
-                const emailContent = `
-Dear ${request.name},
-
-We are delighted to inform you that your visit request has been accepted! 
-We look forward to welcoming you to Shalom Ministry Church on ${request.visitDate}.
-
-Here are the details of your visit:
-- Service: ${request.serviceType}
-- Date: ${request.visitDate}
-- Location: shalom ministry church, gawula, Giyani
-
-If you have any questions or need directions, please don't hesitate to contact us at (555) 123-4567.
-
-We can't wait to meet you and share God's peace with you!
-
-Blessings,
-The Shalom Church Team
-                `;
-                
-                alert(`Email sent to ${request.email}:\n\n${emailContent}`);
-                
-                loadVisitorRequests();
-                updateDashboardStats();
-                
-                // Add to activity
-                churchData.activity.unshift({
-                    date: new Date().toISOString().split('T')[0],
-                    activity: 'Visitor Request Accepted',
-                    details: `${request.name}'s visit approved`,
-                    user: 'Admin'
-                });
-                loadRecentActivity();
-            }
-        }
-
-        function rejectVisitorRequest(requestId) {
-            if (confirm('Are you sure you want to reject this visit request?')) {
-                const request = churchData.visitorRequests.find(req => req.id === requestId);
-                if (request) {
-                    request.status = 'rejected';
-                    
-                    // Simulate sending email
-                    const emailContent = `
-Dear ${request.name},
-
-Thank you for your interest in visiting Shalom Ministry Church. 
-Unfortunately, we are unable to accommodate your visit request at this time.
-
-We appreciate your interest and hope you'll consider visiting us in the future. 
-Please feel free to contact us if you have any questions.
-
-Blessings,
-The Shalom Church Team
-                    `;
-                    
-                    alert(`Email sent to ${request.email}:\n\n${emailContent}`);
-                    
-                    loadVisitorRequests();
-                    updateDashboardStats();
-                    
-                    // Add to activity
-                    churchData.activity.unshift({
-                        date: new Date().toISOString().split('T')[0],
-                        activity: 'Visitor Request Rejected',
-                        details: `${request.name}'s visit declined`,
-                        user: 'Admin'
-                    });
-                    loadRecentActivity();
-                }
-            }
-        }
-
-        // Service Times Management
-        document.getElementById('service-times-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Service times updated successfully!');
+        function filterByDate(range) {
+            const today = new Date();
+            let filtered = [];
             
-            // Add to activity
-            churchData.activity.unshift({
-                date: new Date().toISOString().split('T')[0],
-                activity: 'Service Times Updated',
-                details: 'Church service schedule modified',
-                user: 'Admin'
+            switch(range) {
+                case 'today':
+                    filtered = allEvents.filter(event => 
+                        new Date(event.event_date).toDateString() === today.toDateString()
+                    );
+                    break;
+                case 'week':
+                    const weekStart = new Date(today);
+                    weekStart.setDate(today.getDate() - today.getDay());
+                    const weekEnd = new Date(weekStart);
+                    weekEnd.setDate(weekStart.getDate() + 6);
+                    
+                    filtered = allEvents.filter(event => {
+                        const eventDate = new Date(event.event_date);
+                        return eventDate >= weekStart && eventDate <= weekEnd;
+                    });
+                    break;
+                case 'month':
+                    filtered = allEvents.filter(event => 
+                        new Date(event.event_date).getMonth() === today.getMonth() &&
+                        new Date(event.event_date).getFullYear() === today.getFullYear()
+                    );
+                    break;
+                default:
+                    filtered = allEvents;
+            }
+            
+            // Update table
+            const tbody = document.getElementById('events-table-body');
+            tbody.innerHTML = '';
+            
+            filtered.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.title}</td>
+                    <td>${new Date(event.event_date).toLocaleDateString()}</td>
+                    <td>${event.event_type || 'Service'}</td>
+                    <td>${event.location}</td>
+                    <td>
+                        <span class="status-badge ${event.is_published ? 'status-published' : 'status-draft'}">
+                            ${event.is_published ? 'Published' : 'Draft'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="viewEventDetails(${event.event_id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="editEvent(${event.event_id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn" onclick="deleteEvent(${event.event_id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
             });
-            loadRecentActivity();
-        });
+        }
 
-        // Logout function
+        function showSearchResultsModal(results, query) {
+            // Create modal for search results
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 800px;">
+                    <h3 style="margin-bottom: 1.5rem;">
+                        <i class="fas fa-search"></i> Search Results for "${query}"
+                    </h3>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        ${results.map((result, index) => `
+                            <div style="padding: 1rem; border-bottom: 1px solid var(--light);">
+                                <div style="display: flex; justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <strong>${result.type}: </strong>
+                                        ${result.type === 'Member' ? 
+                                            `${result.data.first_name} ${result.data.last_name}` : 
+                                            result.data.title}
+                                    </div>
+                                    <span class="status-badge" style="background: ${result.type === 'Member' ? 'rgba(39, 174, 96, 0.15)' : 'rgba(52, 152, 219, 0.15)'}; 
+                                            color: ${result.type === 'Member' ? 'var(--success)' : 'var(--accent)'};">
+                                        ${result.type}
+                                    </span>
+                                </div>
+                                ${result.type === 'Member' ? `
+                                    <div style="margin-top: 0.5rem; color: var(--gray); font-size: 0.9rem;">
+                                        ${result.data.email} • ${result.data.phone || 'No phone'} • ${result.data.membership_status}
+                                    </div>
+                                ` : `
+                                    <div style="margin-top: 0.5rem; color: var(--gray); font-size: 0.9rem;">
+                                        ${new Date(result.data.event_date).toLocaleDateString()} • ${result.data.location}
+                                    </div>
+                                `}
+                                <button class="action-btn" onclick="view${result.type}Details(${result.type === 'Member' ? `'${result.data.member_id}'` : result.data.event_id})" 
+                                        style="margin-top: 0.5rem;">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn-admin" onclick="this.closest('.modal').remove()" style="margin-top: 1.5rem; width: 100%;">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // UI Helper Functions
+        function showNotification(message, type = 'info') {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+            
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.background = type === 'success' ? 'var(--success)' : 
+                                    type === 'error' ? 'var(--danger)' : 
+                                    type === 'warning' ? 'var(--warning)' : 'var(--info)';
+            
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 
+                                   type === 'error' ? 'exclamation-circle' : 
+                                   type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        }
+
+        function showLoading(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.innerHTML = '<div class="spinner"></div>';
+            }
+        }
+
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = '/';
+                window.location.href = '/admin/logout';
             }
         }
 
-        // Export functionality
-        document.querySelector('.btn-primary').addEventListener('click', function() {
-            alert('Member list exported successfully!');
-        });
-
-        document.querySelector('.btn-success').addEventListener('click', function() {
-            alert('PDF report generated successfully!');
-        });
+        // Set active section to dashboard on load
+        setActiveSection('dashboard');
     </script>
 </body>
 </html>
