@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Shalom Church - Leadership & Team</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7a7225;
+            --primary-dark: #1e3a23;
+            --primary-light: #4a7c59;
+            --secondary: #d4af37;
+            --accent: #b87333;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --background: #fefcf5;
+            --white: #ffffff;
+            --gray-light: #f1f5f9;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        /* Subtle background ornaments */
+        .bg-ornaments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg-ornaments::before {
+            content: "✦ ✧ ✦ ✧ ✦ ✧";
+            position: absolute;
+            font-size: 4rem;
+            white-space: nowrap;
+            color: rgba(212,175,55,0.06);
+            top: 5%;
+            left: -10%;
+            width: 120%;
+            animation: driftStars 50s linear infinite;
+            letter-spacing: 60px;
+        }
+        .bg-ornaments::after {
+            content: "🕊️ ✝️ ⚜️ 🕊️ ✝️";
+            position: absolute;
+            bottom: 2%;
+            right: -5%;
+            font-size: 2.8rem;
+            opacity: 0.05;
+            animation: floatAngels 35s infinite alternate;
+        }
+        @keyframes driftStars {
+            0% { transform: translateX(0) translateY(0);}
+            100% { transform: translateX(-30%) translateY(40px);}
+        }
+        @keyframes floatAngels {
+            0% { transform: translateY(0px) rotate(0deg);}
+            100% { transform: translateY(-60px) rotate(6deg);}
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header / Navigation */
+        .site-header {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            padding: 1rem 0;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-home:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 80px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Team sections */
+        .team-category {
+            margin-bottom: 4rem;
+        }
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--secondary);
+            padding-left: 20px;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .team-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+        .team-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.2rem;
+            border: 4px solid var(--secondary);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .team-img:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+        .team-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.3rem;
+        }
+        .team-role {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        .team-bio {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .social-icons a {
+            color: var(--primary-light);
+            transition: 0.2s;
+            font-size: 1.2rem;
+        }
+        .social-icons a:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* FULLSCREEN MODAL FOR IMAGE */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+        .modal-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            border: 3px solid var(--secondary);
+        }
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            background: none;
+            border: none;
+        }
+        .close-modal:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 2.2rem; }
+            .category-title { font-size: 1.6rem; }
+            .team-card { padding: 1.5rem; }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #ddd;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .footer p {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+<div class="bg-ornaments"></div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo-area">
+            <img src="static/images/shalom_img.jpeg" alt="Shalom Church" class="logo-image" onerror="this.src='https://placehold.co/400x400/7a7225/white?text=✝️'">
+            <span class="logo-text">SHALOM CHURCH</span>
+        </div>
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Our Leadership & Team</h1>
+        <p>Meet the dedicated servants leading Shalom Church with vision, integrity, and the heart of Christ.</p>
+    </div>
+</section>
+
+<main class="container">
+    <!-- 1. Pastor / Prophet (Main Leader) -->
+    <div class="team-category">
+        <h2 class="category-title"><i class="fas fa-church"></i> Senior Leadership</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Dr. David Maluleke" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/76.jpg">
+                <h3>Dr. David Maluleke</h3>
+                <div class="team-role">Senior Pastor & Prophet</div>
+                <p class="team-bio">Founder of Shalom Ministry Church, called to proclaim truth, healing, and wholeness. Over 20 years of ministry with a prophetic voice for the nation.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/women/79.jpg" alt="Pastor Rachel Maluleke" class="team-img" data-fullimg="https://randomuser.me/api/portraits/women/79.jpg">
+                <h3>Pastor Rachel Maluleke</h3>
+                <div class="team-role">Co-Pastor & Intercessor</div>
+                <p class="team-bio">A woman of prayer and worship, co-leading the vision alongside Pastor David, with a heart for women and families.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Assistant Pastors -->
+    <div class="team-category">
+        <h2 class="category-title"><i class="fas fa-user-graduate"></i> Assistant Pastors</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Pastor Samuel Nkosi" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/45.jpg">
+                <h3>Pastor Samuel Nkosi</h3>
+                <div class="team-role">Associate Pastor</div>
+                <p class="team-bio">Oversees midweek services and pastoral care. Passionate about discipleship and biblical teaching.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Pastor Lydia Mkhize" class="team-img" data-fullimg="https://randomuser.me/api/portraits/women/68.jpg">
+                <h3>Pastor Lydia Mkhize</h3>
+                <div class="team-role">Assistant Pastor / Counseling</div>
+                <p class="team-bio">Leads the counseling ministry and women's fellowship. Brings wisdom and compassion to broken hearts.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Worship Team -->
+    <div class="team-category">
+        <h2 class="category-title"><i class="fas fa-music"></i> Worship Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Thabo Mokoena" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/32.jpg">
+                <h3>Thabo Mokoena</h3>
+                <div class="team-role">Worship Leader</div>
+                <p class="team-bio">Anointed musician leading the congregation into powerful praise and intimate worship.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Precious Dlamini" class="team-img" data-fullimg="https://randomuser.me/api/portraits/women/44.jpg">
+                <h3>Precious Dlamini</h3>
+                <div class="team-role">Vocalist / Songwriter</div>
+                <p class="team-bio">Hearts for worship expressions and training the next generation of worshipers.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Michael Ngobeni" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/22.jpg">
+                <h3>Michael Ngobeni</h3>
+                <div class="team-role">Keyboards & Music Director</div>
+                <p class="team-bio">Coordinates the music team and arranges contemporary worship songs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Ushers (Ashars) -->
+    <div class="team-category">
+        <h2 class="category-title"><i class="fas fa-hand-peace"></i> Ushers & Hospitality</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Elder James Chauke" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/52.jpg">
+                <h3>Elder James Chauke</h3>
+                <div class="team-role">Head Usher</div>
+                <p class="team-bio">Ensuring every guest feels welcome, loved, and seated in God's presence.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Grace Shilubane" class="team-img" data-fullimg="https://randomuser.me/api/portraits/women/33.jpg">
+                <h3>Grace Shilubane</h3>
+                <div class="team-role">Hospitality Coordinator</div>
+                <p class="team-bio">Leads the usher team and oversees first-time guest experience.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Media Team -->
+    <div class="team-category">
+        <h2 class="category-title"><i class="fas fa-video"></i> Media & Communications</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Lucas Rikhotso" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/41.jpg">
+                <h3>Lucas Rikhotso</h3>
+                <div class="team-role">Media Director</div>
+                <p class="team-bio">Oversees livestream, social media, and audio/visual production.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Martha Baloyi" class="team-img" data-fullimg="https://randomuser.me/api/portraits/women/55.jpg">
+                <h3>Martha Baloyi</h3>
+                <div class="team-role">Photography & Content</div>
+                <p class="team-bio">Captures God's moments and creates engaging content for online outreach.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Andries Mathonsi" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/90.jpg">
+                <h3>Andries Mathonsi</h3>
+                <div class="team-role">Sound Engineer</div>
+                <p class="team-bio">Professional audio mixing and live sound excellence.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Youth Leaders -->
+    <div class="team-category">
+        <h2 class="category-title"><i class="fas fa-users"></i> Youth Leaders</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/30.jpg" alt="Pastor Sibusiso Hlatshwayo" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/30.jpg">
+                <h3>Pastor Sibusiso Hlatshwayo</h3>
+                <div class="team-role">Youth Pastor</div>
+                <p class="team-bio">Dynamic leader raising firebrands for Christ through Friday Youth Explosions.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Nomcebo Vilakazi" class="team-img" data-fullimg="https://randomuser.me/api/portraits/women/28.jpg">
+                <h3>Nomcebo Vilakazi</h3>
+                <div class="team-role">Youth Coordinator</div>
+                <p class="team-bio">Passionate about mentorship, camps, and discipleship for teens.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/19.jpg" alt="Lesego Madonsela" class="team-img" data-fullimg="https://randomuser.me/api/portraits/men/19.jpg">
+                <h3>Lesego Madonsela</h3>
+                <div class="team-role">Young Adults Leader</div>
+                <p class="team-bio">Leads weekly connect groups and career mentorship.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Shalom Church - Raising true worshipers and disciples.</p>
+        <p style="margin-top: 0.5rem; font-size:0.85rem;">“Growing in God's Word with Shalom – The true Church for true Christians.”</p>
+    </div>
+</footer>
+
+<!-- FULLSCREEN IMAGE MODAL -->
+<div id="imageModal" class="image-modal">
+    <button class="close-modal" id="closeModalBtn">&times;</button>
+    <img class="modal-img" id="modalFullImg" src="" alt="Full view">
+</div>
+
+<script>
+    // Get all team images with data-fullimg attribute
+    const teamImgs = document.querySelectorAll('.team-img');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalFullImg');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    // Function to open modal with given image source
+    function openModal(imgSrc) {
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
+        document.body.style.overflow = 'hidden'; // prevent background scroll
+    }
+
+    // Close modal function
+    function closeModal() {
+        modal.style.display = 'none';
+        modalImg.src = '';
+        document.body.style.overflow = '';
+    }
+
+    // Add click event to each team image
+    teamImgs.forEach(img => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Get the full image URL from data-fullimg or fallback to src
+            let fullUrl = img.getAttribute('data-fullimg');
+            if (!fullUrl) fullUrl = img.src;
+            openModal(fullUrl);
+        });
+    });
+
+    // Close modal on click outside image or on close button
+    modal.addEventListener('click', (e) => {
+        // If click target is the modal background (not the image itself)
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeModal();
+        }
+    });
+
+    // Optional: fallback for logo image if static file not found
+    const logoImg = document.querySelector('.logo-image');
+    if(logoImg && logoImg.complete && logoImg.naturalWidth === 0) {
+        logoImg.src = "https://placehold.co/400x400/7a7225/white?text=✝️";
+    }
+
+    // Smooth scroll for any internal links if needed
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if(target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

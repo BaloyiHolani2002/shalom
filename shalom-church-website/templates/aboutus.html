@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Shalom Church - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7a7225;
+            --primary-dark: #1e3a23;
+            --primary-light: #4a7c59;
+            --secondary: #d4af37;
+            --accent: #b87333;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --background: #fefcf5;
+            --white: #ffffff;
+            --gray-light: #f1f5f9;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        /* Background ornaments */
+        .bg-ornaments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg-ornaments::before {
+            content: "✦ ✧ ✦ ✧ ✦ ✧";
+            position: absolute;
+            font-size: 4rem;
+            white-space: nowrap;
+            color: rgba(212,175,55,0.06);
+            top: 5%;
+            left: -10%;
+            width: 120%;
+            animation: driftStars 50s linear infinite;
+            letter-spacing: 60px;
+        }
+        .bg-ornaments::after {
+            content: "🕊️ ✝️ ⚜️ 🕊️ ✝️";
+            position: absolute;
+            bottom: 2%;
+            right: -5%;
+            font-size: 2.8rem;
+            opacity: 0.05;
+            animation: floatAngels 35s infinite alternate;
+        }
+        @keyframes driftStars {
+            0% { transform: translateX(0) translateY(0);}
+            100% { transform: translateX(-30%) translateY(40px);}
+        }
+        @keyframes floatAngels {
+            0% { transform: translateY(0px) rotate(0deg);}
+            100% { transform: translateY(-60px) rotate(6deg);}
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .site-header {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            padding: 1rem 0;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-home:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 80px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Sections */
+        .about-section {
+            padding: 60px 0;
+        }
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--secondary);
+            padding-left: 20px;
+            margin-bottom: 1.5rem;
+        }
+        .section-content {
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+        .beliefs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .belief-item {
+            background: var(--gray-light);
+            border-radius: 24px;
+            padding: 1.2rem;
+            transition: 0.2s;
+        }
+        .belief-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .belief-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+        .timeline {
+            margin: 1.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--secondary);
+        }
+        .timeline-item {
+            margin-bottom: 1.5rem;
+        }
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #ddd;
+            margin-top: 2rem;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-ornaments"></div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo-area">
+            <img src="static/images/shalom_img.jpeg" alt="Shalom Church" class="logo-image" onerror="this.src='https://placehold.co/400x400/7a7225/white?text=✝️'">
+            <span class="logo-text">SHALOM CHURCH</span>
+        </div>
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>About Shalom Church</h1>
+        <p>Know our story, our purpose, and what we stand for as a community of faith.</p>
+    </div>
+</section>
+
+<main class="container about-section">
+    <!-- Church History -->
+    <div class="section-card">
+        <h2 class="section-title"><i class="fas fa-history"></i> Our History</h2>
+        <div class="section-content">
+            <p>Shalom Ministry Church was founded in 2010 with a small group of believers gathering in a home in Gawula, Giyani. Led by Pastor David Maluleke, the church started with a vision to bring God's peace (Shalom) to a broken world. What began as a prayer meeting grew into a vibrant congregation, and in 2013 we moved to our current location next to Solani Primary School. Over the years, we have seen countless lives transformed through the power of the Gospel, community outreach, and discipleship. Today, Shalom Church stands as a beacon of hope, truth, and wholeness in the region.</p>
+            <div class="timeline">
+                <div class="timeline-item"><span class="timeline-year">2010</span> – First home fellowship with 12 members</div>
+                <div class="timeline-item"><span class="timeline-year">2013</span> – Land purchased and first church building erected</div>
+                <div class="timeline-item"><span class="timeline-year">2015</span> – Youth and worship ministries established</div>
+                <div class="timeline-item"><span class="timeline-year">2020</span> – Launch of online services reaching thousands</div>
+                <div class="timeline-item"><span class="timeline-year">2025</span> – Growing as a lighthouse for true Christian faith</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision & Mission -->
+    <div class="section-card">
+        <h2 class="section-title"><i class="fas fa-eye"></i> Vision & Mission</h2>
+        <div class="section-content">
+            <p><strong>Vision:</strong> To see every person experience Shalom – the complete peace, wholeness, and restoration that comes from knowing Jesus Christ. We envision a community transformed by God's Word, raising disciples who impact their world.</p>
+            <p style="margin-top: 1rem;"><strong>Mission:</strong> We exist to:</p>
+            <ul style="margin: 0.5rem 0 0 2rem;">
+                <li>📖 Preach the uncompromised truth of the Bible</li>
+                <li>🙌 Worship God in spirit and in truth</li>
+                <li>🤝 Love and serve our local community</li>
+                <li>🌍 Send and support missionaries worldwide</li>
+                <li>👨‍👩‍👧‍👦 Equip families and raise godly generations</li>
+            </ul>
+            <p style="margin-top: 1rem;"><em>"Seek the peace (Shalom) of the city where I have sent you..." – Jeremiah 29:7</em></p>
+        </div>
+    </div>
+
+    <!-- What We Believe (Simple) -->
+    <div class="section-card">
+        <h2 class="section-title"><i class="fas fa-cross"></i> What We Believe</h2>
+        <div class="beliefs-grid">
+            <div class="belief-item">
+                <i class="fas fa-bible"></i>
+                <h3>The Bible</h3>
+                <p>We believe the Bible is God's inspired Word, our final authority for faith and life.</p>
+            </div>
+            <div class="belief-item">
+                <i class="fas fa-church"></i>
+                <h3>One God</h3>
+                <p>There is one God, eternally existing as Father, Son (Jesus), and Holy Spirit.</p>
+            </div>
+            <div class="belief-item">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Salvation through Jesus</h3>
+                <p>Jesus died for our sins, rose again, and offers eternal life to all who believe.</p>
+            </div>
+            <div class="belief-item">
+                <i class="fas fa-praying-hands"></i>
+                <h3>Holy Spirit</h3>
+                <p>The Holy Spirit lives in believers, empowers us, and guides us into truth.</p>
+            </div>
+            <div class="belief-item">
+                <i class="fas fa-heart"></i>
+                <h3>Love & Grace</h3>
+                <p>We are saved by grace through faith, not by works, and called to love God and neighbor.</p>
+            </div>
+            <div class="belief-item">
+                <i class="fas fa-people-arrows"></i>
+                <h3>The Church</h3>
+                <p>The Church is the body of Christ on earth, called to worship, fellowship, and mission.</p>
+            </div>
+        </div>
+        <p style="margin-top: 1.5rem; font-style: italic; text-align: center;">"Jesus said, 'I am the way, the truth, and the life.'" – John 14:6</p>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Shalom Church - Raising true worshipers and disciples.</p>
+        <p style="margin-top: 0.5rem; font-size:0.85rem;">“Growing in God's Word with Shalom – The true Church for true Christians.”</p>
+    </div>
+</footer>
+
+<script>
+    // Logo fallback
+    const logoImg = document.querySelector('.logo-image');
+    if (logoImg && logoImg.complete && logoImg.naturalWidth === 0) {
+        logoImg.src = "https://placehold.co/400x400/7a7225/white?text=✝️";
+    }
+</script>
+</body>
+</html>

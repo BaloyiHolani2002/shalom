@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Shalom Church - Sermons & Teachings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7a7225;
+            --primary-dark: #1e3a23;
+            --primary-light: #4a7c59;
+            --secondary: #d4af37;
+            --accent: #b87333;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --background: #fefcf5;
+            --white: #ffffff;
+            --gray-light: #f1f5f9;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        /* Background ornaments */
+        .bg-ornaments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg-ornaments::before {
+            content: "✦ ✧ ✦ ✧ ✦ ✧";
+            position: absolute;
+            font-size: 4rem;
+            white-space: nowrap;
+            color: rgba(212,175,55,0.06);
+            top: 5%;
+            left: -10%;
+            width: 120%;
+            animation: driftStars 50s linear infinite;
+            letter-spacing: 60px;
+        }
+        .bg-ornaments::after {
+            content: "🕊️ ✝️ ⚜️ 🕊️ ✝️";
+            position: absolute;
+            bottom: 2%;
+            right: -5%;
+            font-size: 2.8rem;
+            opacity: 0.05;
+            animation: floatAngels 35s infinite alternate;
+        }
+        @keyframes driftStars {
+            0% { transform: translateX(0) translateY(0);}
+            100% { transform: translateX(-30%) translateY(40px);}
+        }
+        @keyframes floatAngels {
+            0% { transform: translateY(0px) rotate(0deg);}
+            100% { transform: translateY(-60px) rotate(6deg);}
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .site-header {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            padding: 1rem 0;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .back-home:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 80px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .page-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Sermons Grid */
+        .sermons-section {
+            padding: 60px 0;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--secondary);
+            padding-left: 20px;
+            margin-bottom: 2rem;
+        }
+        .sermons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .sermon-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .sermon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+        .sermon-thumb {
+            background: var(--primary-dark);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        .sermon-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .sermon-info {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        .sermon-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        .sermon-date {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sermon-summary {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .sermon-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+        .sermon-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Add Sermon Form */
+        .add-sermon-form {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            margin-top: 2rem;
+        }
+        .form-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.2);
+        }
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            background: white;
+            border-radius: 32px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #ddd;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 2.2rem; }
+            .sermons-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-ornaments"></div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo-area">
+            <img src="static/images/shalom_img.jpeg" alt="Shalom Church" class="logo-image" onerror="this.src='https://placehold.co/400x400/7a7225/white?text=✝️'">
+            <span class="logo-text">SHALOM CHURCH</span>
+        </div>
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Sermons & Teachings</h1>
+        <p>Listen, watch, or read messages that will strengthen your faith and grow you in God's Word.</p>
+    </div>
+</section>
+
+<main class="container sermons-section">
+    <div>
+        <h2 class="section-title"><i class="fas fa-bible"></i> Latest Messages</h2>
+        <div id="sermonsList" class="sermons-grid">
+            <!-- Sermon cards will be injected here dynamically -->
+            <div class="empty-message">Loading sermons...</div>
+        </div>
+    </div>
+
+    <!-- Form to add new sermon / teaching -->
+    <div class="add-sermon-form">
+        <h3 class="form-title"><i class="fas fa-plus-circle"></i> Upload a Sermon / Teaching</h3>
+        <form id="sermonForm">
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <input type="text" id="title" required placeholder="e.g., The Power of Shalom">
+            </div>
+            <div class="form-group">
+                <label for="date">Date *</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="summary">Summary / Description</label>
+                <textarea id="summary" rows="3" placeholder="Write a short summary of the message..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="youtubeLink">YouTube Link (optional)</label>
+                <input type="url" id="youtubeLink" placeholder="https://www.youtube.com/watch?v=...">
+                <small style="color: var(--text-light);">If provided, the video will be embedded. Otherwise only text summary will be shown.</small>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-upload"></i> Add Sermon</button>
+        </form>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Shalom Church - Raising true worshipers and disciples.</p>
+        <p style="margin-top: 0.5rem; font-size:0.85rem;">“Growing in God's Word with Shalom – The true Church for true Christians.”</p>
+    </div>
+</footer>
+
+<script>
+    // Sample initial sermons (mock data)
+    let sermons = [
+        {
+            id: 1,
+            title: "Living in Shalom: Peace Beyond Understanding",
+            date: "2025-04-13",
+            summary: "Discover the Hebrew meaning of Shalom and how to experience wholeness in every area of life.",
+            youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=abc1"
+        },
+        {
+            id: 2,
+            title: "The Truth Church - Identity in Christ",
+            date: "2025-04-06",
+            summary: "Understanding what it means to be the church of the living God in a confused generation.",
+            youtubeLink: ""
+        },
+        {
+            id: 3,
+            title: "Healing & Wholeness - James 5",
+            date: "2025-03-30",
+            summary: "A teaching on prayer, anointing, and restoration for the brokenhearted.",
+            youtubeLink: "https://www.youtube.com/embed/tgbNymZ7vqY?si=def2"
+        }
+    ];
+
+    // Helper: extract YouTube embed URL from any YouTube link (watch, youtu.be, embed)
+    function getYouTubeEmbedUrl(url) {
+        if (!url) return null;
+        let videoId = null;
+        // Handle youtube.com/watch?v=...
+        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        let match = url.match(regExp);
+        if (match && match[2].length === 11) {
+            videoId = match[2];
+        } else {
+            // try to see if it's already an embed link
+            if (url.includes('embed/')) {
+                const parts = url.split('/embed/');
+                if (parts[1]) videoId = parts[1].split('?')[0];
+            }
+        }
+        if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+        return null;
+    }
+
+    // Render sermons list
+    function renderSermons() {
+        const container = document.getElementById('sermonsList');
+        if (!container) return;
+
+        if (sermons.length === 0) {
+            container.innerHTML = '<div class="empty-message">📖 No sermons uploaded yet. Use the form above to add one.</div>';
+            return;
+        }
+
+        // Sort by date descending (newest first)
+        const sorted = [...sermons].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+        container.innerHTML = sorted.map(sermon => {
+            const embedUrl = getYouTubeEmbedUrl(sermon.youtubeLink);
+            const formattedDate = new Date(sermon.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            let mediaHtml = '';
+            if (embedUrl) {
+                mediaHtml = `<div class="sermon-thumb"><iframe src="${embedUrl}" title="${sermon.title}" allowfullscreen></iframe></div>`;
+            } else {
+                mediaHtml = `<div class="sermon-thumb"><i class="fas fa-church"></i> <span style="margin-left: 10px;">Text Summary</span></div>`;
+            }
+
+            return `
+                <div class="sermon-card" data-id="${sermon.id}">
+                    ${mediaHtml}
+                    <div class="sermon-info">
+                        <div class="sermon-title">${escapeHtml(sermon.title)}</div>
+                        <div class="sermon-date"><i class="far fa-calendar-alt"></i> ${formattedDate}</div>
+                        <div class="sermon-summary">${escapeHtml(sermon.summary) || 'No summary provided.'}</div>
+                        ${embedUrl ? `<a href="${embedUrl}" target="_blank" class="sermon-link"><i class="fab fa-youtube"></i> Watch Full Message</a>` : 
+                                    `<button class="sermon-link" onclick="alert('This is a text summary. No video uploaded.')" style="background:var(--primary-light);"><i class="fas fa-book-open"></i> Read Summary</button>`}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Simple escape to prevent XSS
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // Add new sermon
+    function addSermon(event) {
+        event.preventDefault();
+        const title = document.getElementById('title').value.trim();
+        const date = document.getElementById('date').value;
+        const summary = document.getElementById('summary').value.trim();
+        const youtubeLink = document.getElementById('youtubeLink').value.trim();
+
+        if (!title || !date) {
+            alert("Please provide at least a title and date.");
+            return;
+        }
+
+        const newId = Date.now(); // simple unique id
+        const newSermon = {
+            id: newId,
+            title: title,
+            date: date,
+            summary: summary || "No summary provided.",
+            youtubeLink: youtubeLink || ""
+        };
+
+        sermons.push(newSermon);
+        renderSermons();
+
+        // Clear form
+        document.getElementById('sermonForm').reset();
+        // Optional: show success message
+        alert("Sermon added successfully!");
+    }
+
+    // Load initial data
+    document.addEventListener('DOMContentLoaded', () => {
+        renderSermons();
+
+        // Attach form submit handler
+        const form = document.getElementById('sermonForm');
+        if (form) {
+            form.addEventListener('submit', addSermon);
+        }
+
+        // Logo fallback
+        const logoImg = document.querySelector('.logo-image');
+        if (logoImg && logoImg.complete && logoImg.naturalWidth === 0) {
+            logoImg.src = "https://placehold.co/400x400/7a7225/white?text=✝️";
+        }
+    });
+</script>
+</body>
+</html>
