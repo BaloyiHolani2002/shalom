@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Shalom Church | Truth, Peace & Wholeness in Christ</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -26,9 +26,11 @@
             --text-light: #475569;
             --background: #fefcf5;
             --white: #ffffff;
-            --gray-light: #f1f5f9;
-            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
-            --shadow-md: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+            --gray-light: #f8faf4;
+            --shadow-sm: 0 12px 28px -8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 20px 32px -12px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 30px 45px -18px rgba(0, 0, 0, 0.18);
+            --transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         body {
@@ -39,7 +41,7 @@
             overflow-x: hidden;
         }
 
-        /* BACKGROUND STARS & ANGELS (subtle) */
+        /* BACKGROUND STARS & ANGELS (subtle, more elegant) */
         .bg-ornaments {
             position: fixed;
             top: 0;
@@ -54,14 +56,14 @@
         .bg-ornaments::before {
             content: "✦ ✧ ✦ ✧ ✦ ✧";
             position: absolute;
-            font-size: 4rem;
+            font-size: 5rem;
             white-space: nowrap;
-            color: rgba(212, 175, 55, 0.08);
-            top: 5%;
+            color: rgba(212, 175, 55, 0.05);
+            top: 3%;
             left: -10%;
             width: 120%;
-            animation: driftStars 50s linear infinite;
-            letter-spacing: 60px;
+            animation: driftStars 55s linear infinite;
+            letter-spacing: 70px;
         }
 
         .bg-ornaments::after {
@@ -69,9 +71,9 @@
             position: absolute;
             bottom: 2%;
             right: -5%;
-            font-size: 2.8rem;
-            opacity: 0.06;
-            animation: floatAngels 35s infinite alternate;
+            font-size: 3.2rem;
+            opacity: 0.04;
+            animation: floatAngels 40s infinite alternate;
         }
 
         @keyframes driftStars {
@@ -80,7 +82,7 @@
             }
 
             100% {
-                transform: translateX(-30%) translateY(40px);
+                transform: translateX(-30%) translateY(50px);
             }
         }
 
@@ -90,36 +92,36 @@
             }
 
             100% {
-                transform: translateY(-60px) rotate(6deg);
+                transform: translateY(-70px) rotate(8deg);
             }
         }
 
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 28px;
         }
 
-        /* NAVIGATION */
+        /* NAVIGATION - refined */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(18px);
             z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
         }
 
         .nav-container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 78px;
+            height: 82px;
         }
 
         .logo-container {
@@ -129,19 +131,24 @@
         }
 
         .logo-image {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
             object-fit: cover;
             border: 2px solid var(--secondary);
             box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .logo-image:hover {
+            transform: scale(1.03);
         }
 
         .logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 800;
-            line-height: 1;
+            line-height: 1.1;
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             -webkit-background-clip: text;
             background-clip: text;
@@ -149,15 +156,15 @@
         }
 
         .logo-subtitle {
-            font-size: 0.7rem;
-            letter-spacing: 2.2px;
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
             font-weight: 600;
             color: var(--primary);
         }
 
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 2.2rem;
             align-items: center;
         }
 
@@ -165,15 +172,18 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 600;
-            transition: all 0.2s;
+            transition: var(--transition);
             position: relative;
             padding: 6px 0;
             font-size: 0.95rem;
+            letter-spacing: -0.2px;
         }
 
         .nav-link i {
-            margin-right: 6px;
+            margin-right: 8px;
             font-size: 0.9rem;
+            color: var(--primary);
+            transition: var(--transition);
         }
 
         .nav-link:hover {
@@ -184,13 +194,13 @@
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -3px;
             left: 0;
             width: 0;
             height: 2.5px;
-            background: var(--secondary);
-            transition: 0.25s;
-            border-radius: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            transition: 0.3s;
+            border-radius: 4px;
         }
 
         .nav-link:hover::after {
@@ -201,36 +211,35 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 5px;
+            gap: 6px;
         }
 
         .bar {
-            width: 28px;
+            width: 30px;
             height: 3px;
-            background: var(--primary);
+            background: var(--primary-dark);
             border-radius: 3px;
             transition: 0.3s;
         }
 
-        /* responsive sidebar - slides from RIGHT as requested */
         @media (max-width: 880px) {
             .nav-menu {
                 position: fixed;
                 right: -100%;
-                top: 78px;
+                top: 82px;
                 flex-direction: column;
                 background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(12px);
+                backdrop-filter: blur(20px);
                 width: 280px;
-                border-radius: 24px 0 0 24px;
-                padding: 2rem 1.5rem;
+                border-radius: 32px 0 0 32px;
+                padding: 2rem 1.8rem;
                 gap: 1.8rem;
-                box-shadow: -12px 0 40px rgba(0, 0, 0, 0.1);
-                transition: 0.3s ease-in-out;
+                box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
+                transition: 0.35s ease-in-out;
                 z-index: 999;
-                height: calc(100vh - 78px);
+                height: calc(100vh - 82px);
                 align-items: flex-start;
-                border-left: 2px solid var(--secondary);
+                border-left: 3px solid var(--secondary);
             }
 
             .nav-menu.active {
@@ -247,7 +256,7 @@
             }
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION - more depth */
         .hero {
             min-height: 100vh;
             background: linear-gradient(125deg, rgba(30, 58, 35, 0.92), rgba(122, 114, 37, 0.85)), url('https://images.unsplash.com/photo-1438032945731-e0447e18a4fa?q=80&w=2070&auto=format') center/cover fixed;
@@ -260,21 +269,22 @@
         .hero-content {
             text-align: center;
             color: white;
-            max-width: 900px;
+            max-width: 950px;
             animation: floatIn 1.2s ease-out;
+            padding: 0 1rem;
         }
 
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: 4.2rem;
+            font-size: 4.5rem;
             font-weight: 800;
             letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1.2rem;
+            text-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
         }
 
         .hero-subtitle {
-            font-size: 1.6rem;
+            font-size: 1.65rem;
             font-weight: 500;
             margin-bottom: 2rem;
             background: linear-gradient(135deg, #fff, #f5e6b0);
@@ -291,10 +301,10 @@
         }
 
         .btn {
-            padding: 14px 34px;
+            padding: 14px 36px;
             border-radius: 60px;
             font-weight: 700;
-            transition: all 0.25s;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -302,48 +312,38 @@
             border: none;
             font-size: 1rem;
             text-decoration: none;
+            letter-spacing: 0.3px;
         }
 
         .btn-primary {
             background: var(--secondary);
             color: var(--primary-dark);
-            box-shadow: 0 8px 18px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 12px 20px rgba(212, 175, 55, 0.35);
         }
 
         .btn-primary:hover {
             background: #e6c75a;
-            transform: translateY(-5px);
-            box-shadow: 0 18px 30px rgba(212, 175, 55, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px rgba(212, 175, 55, 0.45);
         }
 
         .btn-secondary {
             background: transparent;
             border: 2px solid white;
             color: white;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
         }
 
         .btn-secondary:hover {
             background: white;
             color: var(--primary-dark);
-            transform: translateY(-5px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
+            transform: translateY(-6px);
         }
 
         @keyframes floatIn {
             from {
                 opacity: 0;
-                transform: translateY(45px);
+                transform: translateY(50px);
             }
 
             to {
@@ -354,33 +354,33 @@
 
         /* SECTION STYLES & SCROLL REVEAL */
         section {
-            padding: 90px 0;
+            padding: 100px 0;
         }
 
         .section-title {
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--primary-dark);
             margin-bottom: 3rem;
             position: relative;
-            width: 100%;
+            font-weight: 700;
         }
 
         .section-title:after {
             content: '';
             display: block;
-            width: 80px;
-            height: 3px;
-            background: var(--secondary);
-            margin: 14px auto 0;
-            border-radius: 4px;
+            width: 90px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            margin: 16px auto 0;
+            border-radius: 6px;
         }
 
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(35px);
-            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transform: translateY(40px);
+            transition: all 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.2);
         }
 
         .scroll-reveal.revealed {
@@ -388,57 +388,14 @@
             transform: translateY(0);
         }
 
-        /* Cards & Grids */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.2rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 28px;
-            padding: 2rem;
-            transition: all 0.3s;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0, 0, 0, 0.03);
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .team-card {
-            background: white;
-            border-radius: 32px;
-            padding: 1.8rem;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .team-card img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border: 3px solid var(--secondary);
-        }
-
+        /* Cards & Grids - premium look */
         .service-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 32px;
             padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
+            transition: var(--transition);
             box-shadow: var(--shadow-sm);
+            text-align: center;
         }
 
         .service-card:hover {
@@ -447,213 +404,26 @@
         }
 
         .service-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
+            width: 88px;
+            height: 88px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
             color: white;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
 
-        /* EVENTS SECTION */
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+        .service-card:hover .service-icon {
+            transform: scale(1.05);
+            box-shadow: 0 18px 28px rgba(0, 0, 0, 0.15);
         }
 
-        .event-card {
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .event-header {
-            background: var(--primary-dark);
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: white;
-        }
-
-        .event-date-badge {
-            background: var(--secondary);
-            border-radius: 24px;
-            padding: 6px 16px;
-            text-align: center;
-            font-weight: bold;
-            color: #1e3a23;
-        }
-
-        .event-details {
-            padding: 1.5rem;
-            flex: 1;
-        }
-
-        .view-image-btn {
-            background: none;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            transition: 0.2s;
-            margin-top: 16px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .view-image-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* MODAL for event image */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(6px);
-        }
-
-        .modal-content {
-            max-width: 85%;
-            max-height: 85%;
-            background: white;
-            border-radius: 32px;
-            padding: 16px;
-            position: relative;
-        }
-
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            border-radius: 24px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            background: var(--secondary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* AI CHATBOT */
-        .ai-chatbot {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1200;
-        }
-
-        .chat-icon {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
-            transition: all 0.2s;
-        }
-
-        .chat-window {
-            position: absolute;
-            bottom: 85px;
-            right: 0;
-            width: 340px;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            display: none;
-            flex-direction: column;
-        }
-
-        .chat-header {
-            background: var(--primary-dark);
-            color: white;
-            padding: 15px;
-            font-weight: bold;
-        }
-
-        .chat-messages {
-            height: 320px;
-            overflow-y: auto;
-            padding: 12px;
-            background: #f9fafb;
-        }
-
-        .chat-input-area {
-            display: flex;
-            border-top: 1px solid #ddd;
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            outline: none;
-        }
-
-        .chat-input-area button {
-            background: var(--primary);
-            border: none;
-            color: white;
-            padding: 0 18px;
-            cursor: pointer;
-        }
-
-        .message {
-            margin-bottom: 12px;
-            padding: 8px 12px;
-            border-radius: 18px;
-            max-width: 80%;
-        }
-
-        .user-msg {
-            background: var(--secondary);
-            color: #1e3a23;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-
-        .bot-msg {
-            background: #e9ecef;
-            color: #1e293b;
-        }
-
-        /* Donation Modal */
+        /* Donation Modal (bank transfer only) */
         .donate-modal {
             display: none;
             position: fixed;
@@ -665,35 +435,156 @@
             z-index: 2100;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(6px);
         }
 
         .donate-box {
             background: white;
-            border-radius: 32px;
+            border-radius: 44px;
             padding: 2rem;
-            max-width: 420px;
+            max-width: 440px;
             text-align: center;
+            box-shadow: var(--shadow-lg);
         }
 
-        /* Footer */
+        .bank-details {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .bank-details p {
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 1rem;
+        }
+
+        /* AI CHATBOT - enhanced */
+        .ai-chatbot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1200;
+        }
+
+        .chat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .chat-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 85px;
+            right: 0;
+            width: 360px;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .chat-header {
+            background: var(--primary-dark);
+            color: white;
+            padding: 16px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .chat-messages {
+            height: 330px;
+            overflow-y: auto;
+            padding: 16px;
+            background: #fefcf8;
+        }
+
+        .message {
+            margin-bottom: 14px;
+            padding: 10px 16px;
+            border-radius: 24px;
+            max-width: 85%;
+            font-size: 0.9rem;
+        }
+
+        .user-msg {
+            background: var(--secondary);
+            color: #1e3a23;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .bot-msg {
+            background: #eef2e6;
+            color: #1e293b;
+        }
+
+        .chat-input-area {
+            display: flex;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-area button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 0 22px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .chat-input-area button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer - refined */
         .footer {
             background: var(--primary-dark);
             color: #ddd;
+            border-top: 6px solid var(--secondary);
         }
 
         .footer-container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 50px 24px;
+            padding: 55px 28px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
         }
 
         .footer-section h3,
         .footer-section h4 {
             color: var(--secondary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.3rem;
+            font-weight: 700;
         }
 
         .footer-section p,
@@ -702,10 +593,12 @@
             margin-bottom: 0.8rem;
             display: block;
             text-decoration: none;
+            transition: 0.2s;
         }
 
         .footer-section a:hover {
             color: var(--secondary);
+            transform: translateX(4px);
         }
 
         .social-links {
@@ -715,8 +608,8 @@
         }
 
         .social-links a {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
@@ -728,6 +621,7 @@
         .social-links a:hover {
             background: var(--secondary);
             color: var(--primary-dark);
+            transform: translateY(-4px);
         }
 
         .footer-bottom {
@@ -736,9 +630,10 @@
             padding: 2rem;
         }
 
+        /* Responsive improvements */
         @media (max-width: 700px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.7rem;
             }
 
             .hero-subtitle {
@@ -746,8 +641,36 @@
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .chat-window {
+                width: 290px;
+                right: -10px;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+        }
+
+        /* Additional polish for about section iframe */
+        .about-iframe {
+            border-radius: 32px;
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            height: 500px;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .about-iframe:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shadow-lg);
         }
     </style>
 </head>
@@ -765,12 +688,21 @@
                 </div>
             </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="#about" class="nav-link"><i class="fas fa-church"></i> About Us</a>
-                <a href="#leadership" class="nav-link"><i class="fas fa-users"></i> Leadership / Team</a>
-                <a href="#sermons" class="nav-link"><i class="fas fa-bible"></i> Sermons / Teachings</a>
-                <a href="#give" class="nav-link" id="giveLink"><i class="fas fa-hand-holding-heart"></i> Give /
-                    Donations</a>
-                <a href="/admin/login" class="nav-link"><i class="fas fa-lock"></i> Admin login</a>
+                <a href="{{ url_for('about') }}" class="nav-link">
+                    <i class="fas fa-church"></i> About Us
+                </a>
+                <a href="{{ url_for('leadership') }}" class="nav-link">
+                    <i class="fas fa-users"></i> Leadership
+                </a>
+                <a href="{{ url_for('sermons') }}" class="nav-link">
+                    <i class="fas fa-bible"></i> Teachings
+                </a>
+                <a href="{{ url_for('testimony') }}" class="nav-link">
+                    <i class="fas fa-comment-dots"></i> Testimonies
+                </a>
+                <a href="{{ url_for('admin_login') }}" class="nav-link">
+                    <i class="fas fa-lock"></i> Admin Login
+                </a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
@@ -781,7 +713,6 @@
     </nav>
 
     <main>
-        <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Welcome to Shalom Church</h1>
@@ -794,35 +725,34 @@
                 </div>
             </div>
             <div class="scroll-indicator"
-                style="position:absolute; bottom:30px; left:50%; transform:translateX(-50%); color:white; font-size:1.5rem; animation: bounce 2s infinite;">
+                style="position:absolute; bottom:30px; left:50%; transform:translateX(-50%); color:white; font-size:1.6rem; animation: bounce 2s infinite;">
                 <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
-        <!-- About Us Section -->
         <section id="about" class="scroll-reveal">
             <div class="container">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
                     <div>
-                        <h4 style="color: var(--primary); font-size: 1.8rem; margin-bottom: 0.5rem;">Our Mission</h4>
-                        <p style="font-size:1.1rem; margin-bottom:1rem">Shalom Ministry Church is a life-giving
+                        <h4 style="color: var(--primary); font-size: 2rem; margin-bottom: 0.8rem;">Our Mission</h4>
+                        <p style="font-size:1.1rem; margin-bottom:1.5rem">Shalom Ministry Church is a life-giving
                             community where God’s peace, truth, and wholeness reshape lives. Rooted in the Word, we are
                             committed to authentic Christianity, love, and community transformation.</p>
                         <p><i class="fas fa-cross" style="color:var(--primary)"></i> We believe in the power of the
                             Gospel to save, heal, and deliver.</p>
                     </div>
-                    <div><img src="static/images/shalom_img.jpeg" alt="Church"
-                            style="border-radius: 32px; width:100%; box-shadow: var(--shadow-md);"></div>
+                    <div style="width:100%;">
+                        <iframe src="https://drive.google.com/file/d/1iRs_RHd3mBSRcaiEbWNxAZRGfk1-5FWM/preview"
+                            width="100%" height="500" allow="autoplay" class="about-iframe"></iframe>
+                    </div>
                 </div>
             </div>
         </section>
 
-
-        <!-- Services Section -->
         <section id="services" class="scroll-reveal" style="background: var(--gray-light);">
             <div class="container">
                 <h2 class="section-title">Worship With Us</h2>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:2rem;">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;">
                     <div class="service-card">
                         <div class="service-icon"><i class="fas fa-sun"></i></div>
                         <h3>Sunday Worship</h3>
@@ -845,69 +775,14 @@
             </div>
         </section>
 
-        <!-- Events Section -->
-        <section id="events" class="events-section"> 
-
-        <div class="container">
-            <h2 class="section-title">Upcoming Events</h2>
-
-            <div class="events-grid">
-                {% if events %}
-                {% for event in events %}
-                <div class="event-card">
-
-                    <!-- Church Logo -->
-                    <div class="event-date">
-                        <img src="{{ url_for('static', filename='images/shalom_img.jpeg') }}" alt="Shalom Church Logo"
-                            style="width:60px; height:60px; border-radius:50%; margin-bottom:10px;">
-
-                        <span class="month">
-                            {{ event[1].strftime('%b') }}
-                        </span>
-                        <span class="day">
-                            {{ event[1].strftime('%d') }}
-                        </span>
-                    </div>
-
-                    <div class="event-details">
-                        <h3>{{ event[0] }}</h3>
-
-                        <p>
-                            <i class="far fa-clock"></i>
-                            {{ event[2] }}
-                            {% if event[3] %} - {{ event[3] }} {% endif %}
-                        </p>
-
-                        <p>
-                            <i class="fas fa-map-marker-alt"></i>
-                            {{ event[4] }}
-                        </p>
-                        <!-- make here to have button for img when the i tacking from database be viewed
-                         when the button click or says no pic uploaded yet if can't get from database -->
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                <p style="text-align:center; color:var(--text-light);">
-                    No upcoming events yet. Please check back soon.
-                </p>
-                {% endif %}
-            </div>
-
-
-        </div>
-
-
-        </section>
-
-        <!-- Give / Donations Section -->
-        <section id="give" class="scroll-reveal" style="background: linear-gradient(120deg, #fef9e6, #fff);">
+        <!-- DONATION SECTION (Bank Transfer Only) -->
+        <section id="give" class="scroll-reveal" style="background: linear-gradient(120deg, #fef9e6, #fff8ef);">
             <div class="container" style="text-align:center;">
                 <h2 class="section-title">Give / Donations</h2>
                 <p style="font-size:1.2rem; max-width:600px; margin:0 auto;">Your generosity fuels outreach, worship,
-                    and community transformation. Give online securely.</p>
+                    and community transformation. Please use the bank details below to make a donation.</p>
                 <button id="openDonateModal" class="btn btn-primary" style="margin-top: 30px;"><i
-                        class="fas fa-donate"></i> Give / Donate now</button>
+                        class="fas fa-university"></i> View Bank Details</button>
             </div>
         </section>
     </main>
@@ -927,7 +802,8 @@
                 <h4>Quick Links</h4>
                 <a href="#home">Home</a>
                 <a href="#services">Services</a>
-                <a href="#events">Events</a>
+                <a href="#give">Give</a>
+                <a href="{{ url_for('testimony') }}">Testimonies</a>
             </div>
             <div class="footer-section">
                 <h4>Contact Info</h4>
@@ -946,32 +822,32 @@
         </div>
     </footer>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="modal">
-        <div class="modal-content"><span class="close-modal">&times;</span><img id="modalImage" src=""
-                alt="Event visual"></div>
-    </div>
-
-    <!-- Donation Modal -->
+    <!-- DONATION MODAL (Bank Transfer Only, No Demo Alert) -->
     <div id="donationModal" class="donate-modal">
-        <div class="donate-box"><span style="float:right; cursor:pointer; font-size:1.5rem;"
-                id="closeDonateModal">&times;</span>
-            <h3><i class="fas fa-heart"></i> Give with joy</h3>
-            <p>Bank: FNB | Acc: 62830956782 | Shalom Church</p>
-            <p>EFT: shalom@give.co.za</p><button class="btn btn-primary"
-                onclick="alert('Thank you for your generosity! God bless.')">Donate via Card (demo)</button>
+        <div class="donate-box">
+            <span style="float:right; cursor:pointer; font-size:1.8rem;" id="closeDonateModal">&times;</span>
+            <h3><i class="fas fa-heart"></i> Give with Joy</h3>
+            <p style="margin-bottom: 1rem;">Use the following bank details to make your donation:</p>
+            <div class="bank-details">
+                <p><strong>Bank:</strong> FNB (First National Bank)</p>
+                <p><strong>Account Name:</strong> Shalom Church</p>
+                <p><strong>Account Number:</strong> 62830956782</p>
+                <p><strong>Branch Code:</strong> 250655</p>
+                <p><strong>Reference:</strong> Your Name + Donation</p>
+                <p><strong>EFT Email:</strong> shalom@give.co.za</p>
+            </div>
+            <p style="font-size: 0.8rem; color: #475569;">Thank you for supporting God's work through Shalom Church.</p>
         </div>
     </div>
 
-    <!-- AI Assistant -->
+    <!-- AI CHATBOT -->
     <div class="ai-chatbot" id="aiChatbot">
         <div class="chat-icon" id="chatIcon"><i class="fas fa-robot"></i></div>
         <div class="chat-window" id="chatWindow">
             <div class="chat-header">🤖 Shalom AI Assistant <span style="float:right; cursor:pointer;"
                     id="closeChat">&times;</span></div>
             <div class="chat-messages" id="chatMessages">
-                <div class="message bot-msg">Hello! I'm your church AI. Ask about service times, events, beliefs or just
-                    say hi! ✨</div>
+                <div class="message bot-msg">Hello! I'm your church AI. Ask about service times, beliefs, or how to give. ✨</div>
             </div>
             <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Ask me anything..."><button
                     id="sendChat">Send</button></div>
@@ -979,54 +855,7 @@
     </div>
 
     <script>
-        // Mock database events (each includes image_url for the "View Post Image" button)
-        const mockEvents = [
-            { id: 1, title: "Kingdom Conference 2025", event_date: "2026-05-25", start_time: "09:00", end_time: "15:00", location: "Shalom Sanctuary", description: "Powerful worship & word from guest ministers", image_url: "https://images.pexels.com/photos/5314487/pexels-photo-5314487.jpeg?auto=compress&cs=tinysrgb&w=600", published: true },
-            { id: 2, title: "Healing & Wholeness Night", event_date: "2026-05-30", start_time: "17:30", end_time: "20:00", location: "Prayer Garden", description: "Special prayer and anointing service", image_url: "https://images.unsplash.com/photo-1540914124281-342587941389?w=600", published: true },
-            { id: 3, title: "Youth Ignite", event_date: "2026-06-05", start_time: "16:00", end_time: "19:00", location: "Youth Center", description: "Games, praise dance, and word", image_url: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=600", published: true },
-        ];
-
-        function renderEvents() {
-            const container = document.getElementById('dynamic-events');
-            if (!container) return;
-            const now = new Date();
-            const futureEvents = mockEvents.filter(ev => new Date(ev.event_date) >= now).sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
-            if (futureEvents.length === 0) { container.innerHTML = '<div style="text-align:center; padding:40px;">✨ No upcoming events yet. Stay tuned ✨</div>'; return; }
-            container.innerHTML = futureEvents.map(ev => {
-                const dateObj = new Date(ev.event_date);
-                const month = dateObj.toLocaleString('default', { month: 'short' }).toUpperCase();
-                const day = dateObj.getDate();
-                return `<div class="event-card">
-                <div class="event-header"><div class="event-date-badge">${month} ${day}</div><strong>${ev.title}</strong></div>
-                <div class="event-details">
-                    <p><i class="far fa-clock"></i> ${ev.start_time} - ${ev.end_time}</p>
-                    <p><i class="fas fa-location-dot"></i> ${ev.location}</p>
-                    <p>${ev.description}</p>
-                    <button class="view-image-btn" data-img="${ev.image_url}" data-title="${ev.title}"><i class="fas fa-image"></i> View Post Image</button>
-                </div>
-            </div>`;
-            }).join('');
-            // attach modal handlers for view image buttons
-            document.querySelectorAll('.view-image-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const imgUrl = btn.getAttribute('data-img');
-                    if (imgUrl && imgUrl.trim() !== "") {
-                        const modal = document.getElementById('imageModal');
-                        const modalImg = document.getElementById('modalImage');
-                        modalImg.src = imgUrl;
-                        modal.style.display = 'flex';
-                    } else {
-                        alert("No image uploaded for this event.");
-                    }
-                });
-            });
-        }
-
-        // Modal close
-        document.querySelector('.close-modal')?.addEventListener('click', () => document.getElementById('imageModal').style.display = 'none');
-        window.addEventListener('click', (e) => { if (e.target === document.getElementById('imageModal')) document.getElementById('imageModal').style.display = 'none'; });
-
-        // Donation modal
+        // Donation modal (bank details only)
         const donateModal = document.getElementById('donationModal');
         document.getElementById('openDonateModal')?.addEventListener('click', () => donateModal.style.display = 'flex');
         document.getElementById('closeDonateModal')?.addEventListener('click', () => donateModal.style.display = 'none');
@@ -1039,13 +868,11 @@
         const sendBtn = document.getElementById('sendChat');
         const chatInput = document.getElementById('chatInput');
         const chatMessages = document.getElementById('chatMessages');
-
         function botResponse(userMsg) {
             const lower = userMsg.toLowerCase();
             if (lower.includes('service') || lower.includes('times')) return "Our services: Sunday 11am & 2pm, Monday and Wednesday 5pm, Friday Youth at 5pm. Join us in person or online!";
             if (lower.includes('location') || lower.includes('address')) return "We’re located next to Solani Primary School, Gawula SMC, Giyani. Use Google Maps via 'Visit Us' button.";
-            if (lower.includes('donate') || lower.includes('give')) return "You can give through our donation section, or Bank: FNB Acc: 62830956782. God bless you!";
-            if (lower.includes('event')) return "Check our upcoming events! Kingdom Conference, Healing Night & Youth Ignite. Click events section.";
+            if (lower.includes('donate') || lower.includes('give')) return "You can give via bank transfer: FNB, Account 62830956782, reference your name. Click the 'Give / Donations' button for full details.";
             if (lower.includes('beliefs')) return "We believe in the Holy Trinity, salvation through Jesus Christ, authority of scripture, and living in Shalom (peace & wholeness).";
             return "Thank you! Feel free to explore worship times, sermons, or contact the church office. Peace in Christ!";
         }
@@ -1067,13 +894,13 @@
         chatIcon.addEventListener('click', () => { chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex'; });
         closeChat.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-        // Mobile toggle (right sidebar)
+        // Mobile menu toggle
         const toggleBtn = document.getElementById('nav-toggle');
         const navMenu = document.getElementById('nav-menu');
         toggleBtn?.addEventListener('click', () => navMenu.classList.toggle('active'));
         document.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => navMenu.classList.remove('active')); });
 
-        // Smooth scroll
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1082,21 +909,18 @@
             });
         });
 
-        // Scroll reveal observer
+        // Scroll reveal
         const revealElements = document.querySelectorAll('.scroll-reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); });
-        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        }, { threshold: 0.1 });
         revealElements.forEach(el => observer.observe(el));
 
-        // Render events from mock database
-        renderEvents();
-
-        // Add bounce animation keyframes if missing
+        // Bounce animation keyframes
         if (!document.querySelector('#bounce-keyframes')) {
             const style = document.createElement('style');
             style.id = 'bounce-keyframes';
-            style.textContent = `@keyframes bounce { 0%,100%{transform:translateY(0) translateX(-50%);} 50%{transform:translateY(-10px) translateX(-50%);} }`;
+            style.textContent = `@keyframes bounce { 0%,100%{transform:translateY(0) translateX(-50%);} 50%{transform:translateY(-12px) translateX(-50%);} }`;
             document.head.appendChild(style);
         }
     </script>

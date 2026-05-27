@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Admin Login - Shalom Church</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,28 +15,241 @@
 
         :root {
             --primary: #7a7225;
-            --primary-dark: #be3591;
+            --primary-dark: #1e3a23;
+            --primary-light: #4a7c59;
             --secondary: #d4af37;
+            --accent: #b87333;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --background: #fefcf5;
             --white: #ffffff;
-            --gray-light: #f8f9fa;
+            --gray-light: #f8faf4;
+            --shadow-sm: 0 12px 28px -8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 20px 32px -12px rgba(0, 0, 0, 0.12);
+            --transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         body {
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND ORNAMENTS (same as main site) */
+        .bg-ornaments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-ornaments::before {
+            content: "✦ ✧ ✦ ✧ ✦ ✧";
+            position: absolute;
+            font-size: 5rem;
+            white-space: nowrap;
+            color: rgba(212, 175, 55, 0.05);
+            top: 3%;
+            left: -10%;
+            width: 120%;
+            animation: driftStars 55s linear infinite;
+            letter-spacing: 70px;
+        }
+
+        .bg-ornaments::after {
+            content: "🕊️ ✝️ ⚜️ 🕊️ ✝️";
+            position: absolute;
+            bottom: 2%;
+            right: -5%;
+            font-size: 3.2rem;
+            opacity: 0.04;
+            animation: floatAngels 40s infinite alternate;
+        }
+
+        @keyframes driftStars {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-30%) translateY(50px); }
+        }
+
+        @keyframes floatAngels {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-70px) rotate(8deg); }
+        }
+
+        /* NAVIGATION (identical to main site) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(18px);
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 82px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-image {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .logo-image:hover {
+            transform: scale(1.03);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-subtitle {
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            padding: 6px 0;
+            font-size: 0.95rem;
+            letter-spacing: -0.2px;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .bar {
+            width: 30px;
+            height: 3px;
+            background: var(--primary-dark);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 880px) {
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 82px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                width: 280px;
+                border-radius: 32px 0 0 32px;
+                padding: 2rem 1.8rem;
+                gap: 1.8rem;
+                box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
+                transition: 0.35s ease-in-out;
+                z-index: 999;
+                height: calc(100vh - 82px);
+                align-items: flex-start;
+                border-left: 3px solid var(--secondary);
+            }
+            .nav-menu.active { right: 0; }
+            .nav-toggle { display: flex; }
+            .nav-link { font-size: 1.1rem; width: 100%; }
+        }
+
+        /* MAIN CONTENT - Login Form */
+        .login-main {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 120px 1.5rem 4rem;
         }
 
         .login-container {
+            max-width: 480px;
+            width: 100%;
             background: var(--white);
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 400px;
+            border-radius: 40px;
+            box-shadow: var(--shadow-md);
+            padding: 2.2rem 2rem 2.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(2px);
+            margin: 0 auto;
+        }
+
+        .login-container:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 45px -18px rgba(0, 0, 0, 0.2);
         }
 
         .login-header {
@@ -44,14 +258,37 @@
         }
 
         .login-header h1 {
-            color: var(--primary);
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .login-header h1 i {
+            color: var(--secondary);
             font-size: 1.8rem;
         }
 
         .login-header p {
-            color: #666;
+            color: var(--text-light);
             font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            border-radius: 60px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            background: #fee2e2;
+            color: #b91c1c;
+            border-left: 4px solid #ef4444;
         }
 
         .form-group {
@@ -60,102 +297,182 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group label i {
+            margin-right: 8px;
+            color: var(--primary);
+            width: 20px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 14px 18px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 60px;
             font-size: 1rem;
-            transition: border 0.3s ease;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            background: #fefcf9;
         }
 
         .form-group input:focus {
-            border-color: var(--primary);
             outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            background: white;
         }
 
         .login-btn {
             width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: var(--white);
+            padding: 14px 20px;
+            background: linear-gradient(95deg, var(--primary-dark), var(--primary));
             border: none;
-            border-radius: 5px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 700;
             font-size: 1rem;
-            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 0.5rem;
+            box-shadow: 0 6px 14px rgba(30, 58, 35, 0.25);
         }
 
         .login-btn:hover {
-            background: var(--primary-dark);
+            transform: translateY(-3px);
+            background: linear-gradient(95deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 12px 22px rgba(30, 58, 35, 0.35);
         }
 
         .back-link {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .back-link a {
             color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .back-link a:hover {
-            text-decoration: underline;
+            color: var(--primary-dark);
+            gap: 12px;
         }
 
-        .alert {
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+        @media (max-width: 520px) {
+            .login-container {
+                padding: 1.8rem 1.5rem;
+            }
+            .login-header h1 {
+                font-size: 1.6rem;
+            }
         }
 
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        /* footer minimal */
+        .footer-mini {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h1><i class="fas fa-user-shield"></i> Admin Login</h1>
-            <p>Shalom Ministry Church Management System</p>
-        </div>
+    <div class="bg-ornaments"></div>
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-error">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <form method="POST" action="/admin/login">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter username" required>
+    <!-- COMPLETE NAVIGATION AS MAIN SITE (with menu items) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <!-- Fixed static path: start with / -->
+                <img src="/static/images/shalom_img.jpeg" alt="Shalom Ministry Church" class="logo-image" onerror="this.src='https://placehold.co/200x200?text=✝️&font=playfair'">
+                <div>
+                    <span class="logo-text">SHALOM</span><br>
+                    <span class="logo-subtitle">MINISTRY CHURCH</span>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter password" required>
+            <div class="nav-menu" id="nav-menu">
+                <a href="/admin/login" class="nav-link active"><i class="fas fa-lock"></i> Admin Login Page</a>
             </div>
-            <button type="submit" class="login-btn">Login to Dashboard</button>
-        </form>
-
-        <div class="back-link">
-            <a href="/">← Back to Main Website</a>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <main class="login-main">
+        <div class="login-container">
+            <div class="login-header">
+                <h1><i class="fas fa-user-shield"></i> Admin Login</h1>
+                <p>Shalom Ministry Church Management System</p>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/admin/login">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="login-btn"><i class="fas fa-arrow-right-to-bracket"></i> Login to Dashboard</button>
+            </form>
+
+            <div class="back-link">
+                <a href="/"><i class="fas fa-arrow-left"></i> Back to Main Website</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-mini">
+        <p>&copy; 2025 Shalom Church. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile toggle functionality (fix: nav-menu exists now)
+        const toggleBtn = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (toggleBtn && navMenu) {
+            toggleBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

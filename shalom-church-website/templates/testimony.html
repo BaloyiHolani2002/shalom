@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Testimonies - Shalom Church</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #7a7225;
+            --primary-dark: #1e3a23;
+            --secondary: #d4af37;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --background: #fefcf5;
+            --white: #ffffff;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+        }
+        /* Background ornaments */
+        .bg-ornaments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg-ornaments::before {
+            content: "✦ ✧ ✦ ✧ ✦ ✧";
+            position: absolute;
+            font-size: 4rem;
+            white-space: nowrap;
+            color: rgba(212,175,55,0.06);
+            top: 5%;
+            left: -10%;
+            width: 120%;
+            animation: driftStars 50s linear infinite;
+            letter-spacing: 60px;
+        }
+        .bg-ornaments::after {
+            content: "🕊️ ✝️ ⚜️ 🕊️ ✝️";
+            position: absolute;
+            bottom: 2%;
+            right: -5%;
+            font-size: 2.8rem;
+            opacity: 0.05;
+            animation: floatAngels 35s infinite alternate;
+        }
+        @keyframes driftStars {
+            0% { transform: translateX(0) translateY(0);}
+            100% { transform: translateX(-30%) translateY(40px);}
+        }
+        @keyframes floatAngels {
+            0% { transform: translateY(0px) rotate(0deg);}
+            100% { transform: translateY(-60px) rotate(6deg);}
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        /* Header */
+        .site-header {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            padding: 1rem 0;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-image {
+            width: 48px; height: 48px; border-radius: 12px;
+            object-fit: cover; border: 2px solid var(--secondary);
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-home {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-home:hover {
+            color: var(--primary-dark);
+            gap: 10px;
+        }
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 80px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .page-hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+        /* Testimonies grid */
+        .testimonies-section { padding: 60px 0; }
+        .testimonies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .testimony-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-sm);
+            transition: 0.3s;
+            border-left: 5px solid var(--secondary);
+        }
+        .testimony-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .testimony-text { font-style: italic; margin-bottom: 1rem; }
+        .testimony-name { font-weight: 700; color: var(--primary); margin-top: 0.5rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .testimony-date { font-size: 0.75rem; color: var(--text-light); }
+        /* Form */
+        .form-container {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            margin-top: 2rem;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px 16px;
+            border: 1px solid #e2e8f0; border-radius: 16px;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.2);
+        }
+        .btn-submit {
+            background: var(--primary-dark); color: white;
+            border: none; padding: 12px 28px; border-radius: 40px;
+            font-weight: 600; cursor: pointer; transition: 0.2s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-submit:hover { background: var(--primary); transform: translateY(-2px); }
+        .alert {
+            padding: 12px 20px; border-radius: 60px; margin-bottom: 1.5rem;
+            background: #dcfce7; color: #166534; text-align: center;
+        }
+        /* Footer */
+        .footer {
+            background: var(--primary-dark); color: #ddd;
+            margin-top: 3rem; padding: 2rem 0; text-align: center;
+        }
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 2.2rem; }
+            .testimonies-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-ornaments"></div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="logo-area">
+            <img src="/static/images/shalom_img.jpeg" alt="Shalom Church" class="logo-image" onerror="this.src='https://placehold.co/400x400/7a7225/white?text=✝️'">
+            <span class="logo-text">SHALOM CHURCH</span>
+        </div>
+        <a href="/" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>What God Is Doing</h1>
+        <p>Read powerful testimonies of healing, breakthrough, and transformed lives at Shalom Church.</p>
+    </div>
+</section>
+
+<div class="container testimonies-section">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2 class="category-title" style="border-left-color: var(--secondary); font-family: 'Playfair Display'; font-size: 2rem; color: var(--primary-dark); border-left: 5px solid var(--secondary); padding-left: 20px; margin-bottom: 2rem;">Latest Testimonies</h2>
+    <div class="testimonies-grid">
+        {% if testimonies %}
+            {% for t in testimonies %}
+            <div class="testimony-card">
+                <div class="testimony-text">“{{ t[2] }}”</div>
+                <div class="testimony-name">
+                    <i class="fas fa-user-circle"></i> {{ t[1] }}
+                    <span class="testimony-date">
+                        {% if t[3] %}
+                            · 
+                            {% if t[3] is string %}
+                                {{ t[3][:10] }}
+                            {% else %}
+                                {{ t[3].strftime('%b %d, %Y') }}
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div style="text-align: center; padding: 2rem; background: white; border-radius: 28px;">
+                <i class="fas fa-praying-hands" style="font-size: 3rem; color: var(--secondary);"></i>
+                <p style="margin-top: 1rem;">No testimonies yet. Be the first to share what God has done for you!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="form-container">
+        <h3 style="font-family: 'Playfair Display'; margin-bottom: 1.5rem; color: var(--primary-dark);">Share Your Testimony</h3>
+        <form method="POST" action="/submit-testimony">
+            <div class="form-group">
+                <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="e.g., Thabo M.">
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email (optional)</label>
+                <input type="email" id="email" name="email" placeholder="We'll keep it private">
+            </div>
+            <div class="form-group">
+                <label for="testimony"><i class="fas fa-comment-dots"></i> Your Testimony</label>
+                <textarea id="testimony" name="testimony" rows="5" required placeholder="Tell us what God has done... (max 1000 characters)" maxlength="1000"></textarea>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Submit Testimony</button>
+        </form>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);"><i class="fas fa-shield-alt"></i> All testimonies are reviewed before publication to maintain integrity.</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Shalom Church - Raising true worshipers and disciples.</p>
+        <p style="margin-top: 0.5rem; font-size:0.85rem;">“Growing in God's Word with Shalom – The true Church for true Christians.”</p>
+    </div>
+</footer>
+
+<script>
+    const logoImg = document.querySelector('.logo-image');
+    if (logoImg && logoImg.complete && logoImg.naturalWidth === 0) {
+        logoImg.src = "https://placehold.co/400x400/7a7225/white?text=✝️";
+    }
+</script>
+</body>
+</html>
